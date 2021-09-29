@@ -1,22 +1,22 @@
+import {UserEditOptions, userLogin, userDelete, userEdit} from '../api/userApi';
 import React from 'react';
-const axios = require('axios');
+
+
 
 export default function Test() {
-  const [state, setState] = React.useState([]);
+//  const [state, setState] = React.useState([]);
 
-  React.useEffect (() => {
-    axios.post('http://localhost:3010/auth/reg', {
-      fullName: 'Fred',
-      email: 'fromFront@bk.ru',
-      dob: '1999-05-29',
-      password: 'Qwerty1234'
-    })
-    .then(function (response: any) {
-      console.log(response);
-    })
-    .catch(function (error : any) {
-      console.log(error);
-    });
+  React.useEffect(() => {
+    console.log('before axios');
+    const token: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ0ZXN0LnVzZXIuMkBiay5ydSIsImlhdCI6MTYzMjg2MTEzOSwiZXhwIjoxNjMyODYyMTM5fQ.4Yh1FAJDeJdnl1vz6ZZ8nDtwocc3RUVtv980t0nRcTs";
+    const options : UserEditOptions = {
+      name: 'edit user 2',
+      dob: '2019-03-03',
+      password: 'Qwerty1234',
+
+    };
+    const res: any = userEdit(options, token);
+    console.log(res);
   }, []);
 
   return (

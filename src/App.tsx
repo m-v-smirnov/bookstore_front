@@ -1,16 +1,34 @@
-import React from 'react';
-import {Provider} from 'react-redux';
+//import React from 'react';
 import './App.css';
-import { store } from './store';
-import Test from './components/test';
+import { Login } from './components/Login';
+import Home from './components/Home';
+import Profile from './components/Profile';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom';
 
 
-function App() {
+
+export default function App() {
   return (
-    <Provider store={store}>
-      <div><Test /></div>
-    </Provider>
+    <Router>
+    <div>
+      <Switch>
+        <Route path="/login">
+          <Login/>
+        </Route>
+        <Route path="/profile">
+          <Profile />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </div>
+  </Router>
   );
 }
 
-export default App;
