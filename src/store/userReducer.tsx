@@ -13,10 +13,24 @@ export type Actions =
 | {type: 'SET_ERROR', payload: string}
 
 
+const setUser = (options: User): Actions => {
+  return {
+    type: 'SET_USER',
+    payload: options
+  }
+} 
+
+//dispatch(setUser(user));
+
 export type UserState = {
   user: User | null;
   loading: boolean;
   error?: string;
+}
+
+const a: UserState = {
+  loading: false,
+  user: null
 }
 
 const initialState : UserState = {

@@ -1,6 +1,6 @@
 //import React from 'react';
 import './App.css';
-import { Login } from './components/Login';
+import {Login} from './components/Login';
 import Home from './components/Home';
 import Profile from './components/Profile';
 import {
@@ -17,9 +17,9 @@ export default function App() {
     <Router>
     <div>
       <Switch>
-        <Route path="/login">
-          <Login/>
-        </Route>
+        <Route path="/login" component={Login} />
+          {/* <Login/> */}
+        {/* </Route> */}
         <Route path="/profile">
           <Profile />
         </Route>
