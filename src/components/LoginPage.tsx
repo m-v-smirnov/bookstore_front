@@ -1,23 +1,31 @@
 import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
 import { UserLoginOptions, userLogin } from '../api/userApi';
-//import styled from 'styled-components';
+import { useAppDispatch } from '../hooks';
+import { AppDispatch, store } from '../store';
+import { loginUserThunk } from '../store/users/userActions';
 
 type Props = {
   setRegisterPage: any;
 };
 
 export const LoginPage: React.FC<Props> = (props) => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<UserLoginOptions>();
+  const dispatch: any = useAppDispatch();
+  const { register, handleSubmit, formState: { errors } } = useForm<UserLoginOptions>();
   const onSubmit: SubmitHandler<UserLoginOptions> = (data) => {
-    console.log(data);
     const options: UserLoginOptions = {
       email: data.email,
       password: data.password,
     };
-    const res: any = userLogin(options);
-    console.log(res);
+
+
+    dispatch(loginUserThunk(options));
   };
+  const activateRegisterPage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    props.setRegisterPage(true);
+  }
+
   return (
     <div className='container'>
       <h3>Sign into your Bookstore account</h3>
@@ -59,15 +67,13 @@ export const LoginPage: React.FC<Props> = (props) => {
 
       </form>
       <h3>Don't have an account?</h3>
-          <button
-            className='container__button--white'
-            onClick={(e) => {
-              e.preventDefault();
-              props.setRegisterPage(true);
-            }}
-          >
-            Create an account
-          </button>
-      </div>
+      <button
+        className='container__button--white'
+        onClick={activateRegisterPage}
+      >
+        Create an account
+      </button>
+    </div>
   );
 }
+

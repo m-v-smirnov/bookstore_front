@@ -1,5 +1,5 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
-import { userReducer } from './userReducer';
+import { userReducer } from './users/userReducer';
 
 //import { createDevTools } from '@redux-devtools/core';
 //import LogMonitor from '@redux-devtools/log-monitor';
@@ -26,4 +26,8 @@ export const store = createStore(
   enhancer
   );
 
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch;
 

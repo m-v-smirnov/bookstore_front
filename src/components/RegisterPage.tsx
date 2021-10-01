@@ -7,7 +7,11 @@ type Props = {
 };
 
 export const RegisterPage: React.FC<Props> = (props) => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<UserCreateOptions>();
+  const { register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm<UserCreateOptions>();
+  
   const onSubmit: SubmitHandler<UserCreateOptions> = (data) => {
     console.log(data);
     const options: UserCreateOptions = {
@@ -16,9 +20,19 @@ export const RegisterPage: React.FC<Props> = (props) => {
       dob: data.dob,
       password: data.password,
     };
-    const res: any = userCreate(options);
-    console.log(res);
+    userCreate(options).then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.error(err.message);
+      
+    })
   };
+
+  const deactivateRegPage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    props.setRegisterPage(false);
+  }
   return (
     <div className='container'>
       <h3>Create your Bookstore account</h3>
@@ -86,15 +100,12 @@ export const RegisterPage: React.FC<Props> = (props) => {
 
       </form>
       <h3>Already have an account?</h3>
-            <button
-              className='container__button--white'
-              onClick={(e) => {
-                e.preventDefault();
-                props.setRegisterPage(false);
-              }}
-            >
-              Sign in
-            </button>
+      <button
+        className='container__button--white'
+        onClick={deactivateRegPage}
+      >
+        Sign in
+      </button>
     </div>
 
   );

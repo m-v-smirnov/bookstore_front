@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { UserLoginOptions, UserCreateOptions, userLogin, userCreate } from '../api/userApi';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {LoginPage} from './LoginPage';
 import {RegisterPage} from './RegisterPage';
@@ -19,6 +18,7 @@ export const Login: React.FC<Props> = (props) => {
     </StyledDiv>
   );
 }
+
 
 
 const StyledDiv = styled.div`

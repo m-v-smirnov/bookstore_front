@@ -1,4 +1,4 @@
-import { User } from "../store/userReducer";
+import { User } from "../store/users/userTypes";
 import { instance } from ".";
 
 
@@ -18,7 +18,7 @@ export type UserEditOptions = {
   password: string;
 }
 
-type UserResponseType = {
+export type UserResponseType = {
   token: string;
   message?: string;
   user: User
