@@ -1,12 +1,11 @@
 import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
-import { UserLoginOptions, userLogin } from '../api/userApi';
+import { UserLoginOptions} from '../api/userApi';
 import { useAppDispatch } from '../hooks';
-import { AppDispatch, store } from '../store';
 import { loginUserThunk } from '../store/users/userActions';
 
 type Props = {
-  setRegisterPage: any;
+  setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const LoginPage: React.FC<Props> = (props) => {

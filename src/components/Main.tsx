@@ -1,4 +1,5 @@
 // import React, { PropsWithChildren, useEffect, useState } from 'react';
+// import styled from 'styled-components';
 
 // type Props = {
 //   children?: React.ReactNode;
@@ -28,7 +29,7 @@
 //     try {
 //       dispatch(startLoading());
 //       const response = await getUserApi();
-//       dispatch(setDate(response.data))
+//       dispatch(setData(response.data))
 //     } catch (e) { 
 //       dispatch(setError())
 //     } finally {

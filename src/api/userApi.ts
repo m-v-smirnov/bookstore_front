@@ -43,7 +43,7 @@ export const userCreate = async (options: UserCreateOptions): Promise<UserRespon
 };
 
 export const userLoginByToken = async (): Promise<UserResponseType> => {
-  const response = await instance.post('/auth/login-token');
+  const response = await instance.get('/auth/login-token');
   return response.data;
 };
 

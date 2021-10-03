@@ -3,7 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { UserCreateOptions, userCreate } from '../api/userApi';
 
 type Props = {
-  setRegisterPage: any;
+  setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const RegisterPage: React.FC<Props> = (props) => {

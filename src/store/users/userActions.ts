@@ -1,5 +1,5 @@
 import { AppDispatch } from "../index";
-import { userLogin, UserLoginOptions } from "../../api/userApi";
+import { userLogin, userLoginByToken, UserLoginOptions } from "../../api/userApi";
 import { UserActions, User } from "./userTypes";
 
 export const setStartLoading = (): UserActions => {
@@ -14,10 +14,21 @@ export const setFinishLoading = (): UserActions => {
   }
 }
 
+export const setClearState = (): UserActions => {
+  return {
+    type: "SET_CLEAR_STATE"
+  }
+}
+
 export const setUser = (options: User): UserActions => {
   return {
     type: 'SET_USER',
     payload: options
+  }
+}
+export const setLoaded = (): UserActions => {
+  return {
+    type: "SET_LOADED"
   }
 }
 
@@ -27,6 +38,9 @@ export const setError = (options: string): UserActions => {
     payload: options
   }
 }
+
+
+
 
 
 export const loginUserThunk = (options: UserLoginOptions) => async (dispatch: AppDispatch) => {
@@ -44,5 +58,18 @@ export const loginUserThunk = (options: UserLoginOptions) => async (dispatch: Ap
   }
 }
 
-
+export const loginByTokenThunk = () => async (dispatch: AppDispatch) => {
+  try {
+    console.log("@@@@@@@@@@@@HI from thunk@@@@@@@@@@@@");
+    dispatch(setStartLoading())
+    const response = await userLoginByToken();    
+    dispatch(setUser(response.user))
+    return true
+  } catch (e: any) {
+    dispatch(setError(e.message))
+    return false
+  } finally {
+    dispatch(setFinishLoading())
+  }
+}
 
