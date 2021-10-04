@@ -1,5 +1,11 @@
 import { AppDispatch } from "../index";
-import { userLogin, userLoginByToken, UserLoginOptions } from "../../api/userApi";
+import {
+  userCreate,
+  UserCreateOptions,
+  userLogin,
+  userLoginByToken,
+  UserLoginOptions,
+} from "../../api/userApi";
 import { UserActions, User } from "./userTypes";
 
 export const setStartLoading = (): UserActions => {
@@ -14,9 +20,9 @@ export const setFinishLoading = (): UserActions => {
   }
 }
 
-export const setClearState = (): UserActions => {
+export const setClearUser = (): UserActions => {
   return {
-    type: "SET_CLEAR_STATE"
+    type: "SET_CLEAR_USER"
   }
 }
 
@@ -24,11 +30,6 @@ export const setUser = (options: User): UserActions => {
   return {
     type: 'SET_USER',
     payload: options
-  }
-}
-export const setLoaded = (): UserActions => {
-  return {
-    type: "SET_LOADED"
   }
 }
 
@@ -43,33 +44,47 @@ export const setError = (options: string): UserActions => {
 
 
 
-export const loginUserThunk = (options: UserLoginOptions) => async (dispatch: AppDispatch) => {
- 
-  try {
-    dispatch(setStartLoading())
-    const response = await userLogin(options);    
-    dispatch(setUser(response.user))
-    return true
-  } catch (e: any) {
-    dispatch(setError(e.message))
-    return false
-  } finally {
-    dispatch(setFinishLoading())
+export const loginUserThunk =
+  (options: UserLoginOptions) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setStartLoading())
+      const response = await userLogin(options);
+      dispatch(setUser(response.user))
+      return true
+    } catch (e: any) {
+      dispatch(setError(e.response.data.message))
+      return false
+    } finally {
+      dispatch(setFinishLoading())
+    }
   }
-}
 
-export const loginByTokenThunk = () => async (dispatch: AppDispatch) => {
-  try {
-    console.log("@@@@@@@@@@@@HI from thunk@@@@@@@@@@@@");
-    dispatch(setStartLoading())
-    const response = await userLoginByToken();    
-    dispatch(setUser(response.user))
-    return true
-  } catch (e: any) {
-    dispatch(setError(e.message))
-    return false
-  } finally {
-    dispatch(setFinishLoading())
+export const loginByTokenThunk =
+  () => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setStartLoading())
+      const response = await userLoginByToken();
+      dispatch(setUser(response.user))
+      return true
+    } catch (e: any) {
+      dispatch(setError(e.response.data.message))
+      return false
+    } finally {
+      dispatch(setFinishLoading())
+    }
   }
-}
 
+export const createUserThunk =
+  (options: UserCreateOptions) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setStartLoading())
+      const response = await userCreate(options);
+      dispatch(setUser(response.user))
+      return true
+    } catch (e: any) {
+      dispatch(setError(e.response.data.message))
+      return false
+    } finally {
+      dispatch(setFinishLoading())
+    }
+  }

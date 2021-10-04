@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../hooks";
-import { setClearState } from "../store/users/userActions";
+import { setClearUser } from "../store/users/userActions";
 
 
 type Props = {
@@ -12,7 +12,7 @@ export const Profile: React.FC<Props> = (props)  => {
     if(localStorage.length > 0) {
       localStorage.removeItem('token');
     }
-    dispatch(setClearState());
+    dispatch(setClearUser());
   };
   return (
     <div>

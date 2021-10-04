@@ -1,6 +1,18 @@
 import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
-import { UserCreateOptions, userCreate } from '../api/userApi';
+import { UserCreateOptions } from '../api/userApi';
+import { useAppDispatch } from '../hooks';
+import { createUserThunk } from '../store/users/userActions';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
+const schema = yup.object({
+  name: yup.string().required(),
+  email: yup.string().email().required(),
+  dob: yup.string().required(),
+  password: yup.string().min(5).required(),
+}).required();
 
 type Props = {
   setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -9,9 +21,10 @@ type Props = {
 export const RegisterPage: React.FC<Props> = (props) => {
   const { register,
     handleSubmit,
-    formState: { errors }
-  } = useForm<UserCreateOptions>();
-  
+    formState: { errors },
+  } = useForm<UserCreateOptions>({ resolver: yupResolver(schema) });
+
+  const dispatch: any = useAppDispatch();
   const onSubmit: SubmitHandler<UserCreateOptions> = (data) => {
     console.log(data);
     const options: UserCreateOptions = {
@@ -20,13 +33,7 @@ export const RegisterPage: React.FC<Props> = (props) => {
       dob: data.dob,
       password: data.password,
     };
-    userCreate(options).then(res => {
-      console.log(res);
-    })
-    .catch(err => {
-      console.error(err.message);
-      
-    })
+    dispatch(createUserThunk(options));
   };
 
   const deactivateRegPage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -53,6 +60,9 @@ export const RegisterPage: React.FC<Props> = (props) => {
           {...register("name")}
         >
         </input>
+        <p className='container__input--error'>
+          {errors.name?.message}
+        </p>
         <label
           className='container__label'
           htmlFor="GET-email"
@@ -66,6 +76,9 @@ export const RegisterPage: React.FC<Props> = (props) => {
           {...register("email")}
         >
         </input>
+        <p className='container__input--error'>
+          {errors.email?.message}
+        </p>
         <label
           className='container__label'
           htmlFor="GET-dob"
@@ -79,6 +92,9 @@ export const RegisterPage: React.FC<Props> = (props) => {
           {...register("dob")}
         >
         </input>
+        <p className='container__input--error'>
+          {errors.dob?.message}
+        </p>
         <label
           className='container__label'
           htmlFor="GET-pass"
@@ -92,6 +108,9 @@ export const RegisterPage: React.FC<Props> = (props) => {
           {...register("password")}
         >
         </input>
+        <p className='container__input--error'>
+          {errors.password?.message}
+        </p>
         <input
           type="submit"
           className='container__button--blue'

@@ -43,10 +43,16 @@ const StyledDiv = styled.div`
     width: auto;
     border: 1px solid black;
   }
+  &__input--error{
+    padding: 0;
+    margin: 0;
+    color: red;
+  }
   &__label {
     align-self: flex-start;
   }
   &__button--blue {
+    margin-top: 20px;
     padding: 5px;
     font-size: 24px;
     font-weight: 600;

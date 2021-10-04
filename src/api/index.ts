@@ -1,10 +1,15 @@
 import axios from "axios";
+import { store } from "../store";
+import { setError } from "../store/users/userActions";
 
 export const instance = axios.create({
   baseURL: 'http://localhost:3010',
 });
 
+
+
 instance.interceptors.request.use(function (config) {
+  store.dispatch(setError(''));
   const token = localStorage.getItem('token');
   if (token) {
     config.headers.authorization = `Bearer ${token}`;

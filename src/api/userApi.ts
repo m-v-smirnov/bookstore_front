@@ -33,7 +33,7 @@ export const userLogin = async (options: UserLoginOptions): Promise<UserResponse
 };
 
 export const userCreate = async (options: UserCreateOptions): Promise<UserResponseType> => {
-  const response = await instance.post('/auth/reg', {
+  const response = await instance.post('/auth/registration', {
     fullName: options.name,
     email: options.email,
     dob: options.dob,

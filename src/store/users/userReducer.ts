@@ -3,7 +3,7 @@ import { UserActions, UserState } from "./userTypes";
 const initialState: UserState = {
   user: null,
   loading: false,
-  isLoaded: false
+  error: ''
 }
 
 export const userReducer = (
@@ -30,22 +30,18 @@ export const userReducer = (
           dob: actions.payload.dob,
           email: actions.payload.email,
           id: actions.payload.id
-        }
-      }
-    case 'SET_LOADED':
-      return {
-        ...state,
-        isLoaded: true
+        },
       }
     case 'SET_ERROR':
       return {
         ...state,
-        error: actions.payload
+        error: actions.payload,
       }
-    case 'SET_CLEAR_STATE':
-      return (
-        state = initialState
-      )
+    case 'SET_CLEAR_USER':
+      return {
+        ...state,
+        user: null
+      }
     default:
       return state
   }

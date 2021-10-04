@@ -1,8 +1,16 @@
 import React from 'react';
-import { useForm, SubmitHandler } from "react-hook-form";
-import { UserLoginOptions} from '../api/userApi';
+import { useForm, SubmitHandler, appendErrors } from "react-hook-form";
+import { UserLoginOptions } from '../api/userApi';
 import { useAppDispatch } from '../hooks';
 import { loginUserThunk } from '../store/users/userActions';
+
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
+const schema = yup.object({
+  email: yup.string().email().required(),
+  password: yup.string().required(),
+}).required();
 
 type Props = {
   setRegisterPage: React.Dispatch<React.SetStateAction<boolean>>;
@@ -10,7 +18,10 @@ type Props = {
 
 export const LoginPage: React.FC<Props> = (props) => {
   const dispatch: any = useAppDispatch();
-  const { register, handleSubmit, formState: { errors } } = useForm<UserLoginOptions>();
+  const { register, handleSubmit,
+    formState: { errors }
+  } = useForm<UserLoginOptions>({ resolver: yupResolver(schema) });
+
   const onSubmit: SubmitHandler<UserLoginOptions> = (data) => {
     const options: UserLoginOptions = {
       email: data.email,
@@ -20,10 +31,11 @@ export const LoginPage: React.FC<Props> = (props) => {
 
     dispatch(loginUserThunk(options));
   };
-  const activateRegisterPage = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-    props.setRegisterPage(true);
-  }
+  const activateRegisterPage =
+    (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+      e.preventDefault();
+      props.setRegisterPage(true);
+    }
 
   return (
     <div className='container'>
@@ -44,6 +56,9 @@ export const LoginPage: React.FC<Props> = (props) => {
           {...register("email")}
         >
         </input>
+        <p className='container__input--error'>
+          {errors.email?.message}
+        </p>
         <label
           className='container__label'
           htmlFor="GET-pass"
@@ -57,6 +72,8 @@ export const LoginPage: React.FC<Props> = (props) => {
           {...register("password")}
         >
         </input>
+        <p className='container__input--error'>
+          {errors.password?.message}</p>
         <input
           type="submit"
           className='container__button--blue'

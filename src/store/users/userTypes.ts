@@ -2,8 +2,8 @@ type SetUserAction = { type: 'SET_USER', payload: User }
 type SetStartLoadingAction = { type: 'SET_START_LOADING' }
 type SetErrorAction = { type: 'SET_ERROR', payload: string }
 type SetFinishLoadingAction = { type: 'SET_FINISH_LOADING' }
-type SetClearState = { type: 'SET_CLEAR_STATE' }
-type SetLoaded = { type: 'SET_LOADED' }
+type SetClearUser = { type: 'SET_CLEAR_USER' }
+
 
 
 export type UserActions =
@@ -11,8 +11,7 @@ export type UserActions =
   | SetStartLoadingAction
   | SetErrorAction
   | SetFinishLoadingAction
-  | SetClearState
-  | SetLoaded
+  | SetClearUser
 
 export type User = {
   name: string;
@@ -23,7 +22,6 @@ export type User = {
 
 export type UserState = {
   user: User | null;
-  isLoaded: boolean;
   loading: boolean;
-  error?: string;
+  error: string;
 }
