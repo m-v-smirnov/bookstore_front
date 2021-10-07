@@ -1,11 +1,13 @@
 import React from 'react';
 import { useForm, SubmitHandler, appendErrors } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
 import { UserLoginOptions } from '../api/userApi';
 import { useAppDispatch } from '../hooks';
 import { loginUserThunk } from '../store/users/userActions';
 
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
+
 
 const schema = yup.object({
   email: yup.string().email().required(),

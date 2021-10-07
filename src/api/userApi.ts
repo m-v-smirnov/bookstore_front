@@ -26,8 +26,8 @@ export type UserResponseType = {
 
 export const userLogin = async (options: UserLoginOptions): Promise<UserResponseType> => {
   const response = await instance.post('/auth/login', {
-    email: options.email,
-    password: options.password,
+   email: options.email,
+   password: options.password,
   });
   return response.data;
 };
