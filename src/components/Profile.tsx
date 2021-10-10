@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react';
-
+import React from 'react';
 import styled from 'styled-components';
 
 import { Logout } from './Logout';
 import { AddBook } from './AddBook';
-import { GenresResponseType, getGenres } from '../api/bookApi';
 
 
 type Props = {

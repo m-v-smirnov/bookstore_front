@@ -1,8 +1,8 @@
 import { useForm, SubmitHandler, appendErrors } from "react-hook-form";
-import { addBook, GenreType, getGenres } from "../api/bookApi";
-import avatarImgRef from '../images/book.png';
+import { addBook, GenreType, getGenres, uploadFile } from "../api/bookApi";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+
 
 type BookAddOptions = {
   title: string,
@@ -18,6 +18,8 @@ type Props = {
 
 export const AddBook: React.FC<Props> = (props) => {
   const [genreArray, setGenre] = useState<GenreType[]>([]);
+
+  const [avatarImgRef, setAvatarImgRef] = useState("http://localhost:3010/static/images/40df73b829266e7028e9f8bb60a857ec");
 
   const { register, handleSubmit,
     formState: { errors }
@@ -50,6 +52,23 @@ export const AddBook: React.FC<Props> = (props) => {
       console.log(e)
     }
   }
+
+  const onChangeFileLoading: React.ChangeEventHandler<HTMLInputElement> = async (e) => {
+    if(!e.target.files) {return};
+    const formData = new FormData();
+    formData.append('cover', e.target.files[0]);
+    console.log(formData.values);
+    
+    try {
+      const response = await uploadFile(formData);
+      setAvatarImgRef("http://localhost:3010/static/images/" + response);
+      console.log(`File uploading response : ${response}`);
+      
+    } catch (error) {
+      console.log(error)
+    }
+    
+  };
   return (
     <StyledDiv>
       <form
@@ -58,7 +77,12 @@ export const AddBook: React.FC<Props> = (props) => {
       >
         <div>
           <img src={avatarImgRef} alt="avatar image here" />
-          <input type="file" {...register("files")} id="cover" />
+          <input
+            onChange={onChangeFileLoading}
+            type="file"
+            // {...register("files")}
+            id="cover"
+          />
         </div>
         <label
           htmlFor="title"
@@ -99,7 +123,7 @@ export const AddBook: React.FC<Props> = (props) => {
             return <option value={item._id} key={item._id} >{item.name}</option>
           })}
         </select>
-        <label 
+        <label
           htmlFor="description"
           form='book-form'
         >

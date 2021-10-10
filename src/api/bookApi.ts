@@ -41,6 +41,13 @@ export const addBook = async (options: FormData)
   return response.data;
 };
 
+export const uploadFile = async (options: any): Promise<String> => {
+  const response = await instance.post("books/cover",options, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return response.data.fileName;
+};
+
 export const getGenres = async (): Promise<GenresResponseType> => {
   const response = await instance.get("/books/genres")
   return response.data;
