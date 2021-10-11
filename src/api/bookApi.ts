@@ -1,13 +1,25 @@
+import { log } from "console";
 import { instance } from ".";
 
+export type BookAddOptions = {
+  title: string,
+  description: string,
+  author: string,
+  genreId: string;
+  cover: string
+  price: number,
+  amount: number,
+  sale: boolean,
+  "_id" ?: string,
+  userId ?: string
+};
+export type GetBookOptions = {
+  genreId ?: string,
+  author ?: string
+};
 
 export type BookResponseType = {
-  "_id" : string,
-  title : string,
-  description : string,
-  authorId : string | [],
-  genreId : string | [],
-  userId : string
+  books: BookAddOptions[]
 }; 
 
 export type GenreType = {
@@ -31,19 +43,15 @@ export type AuthorsResponseType = {
 };
 
 
-export const addBook = async (options: FormData)
-: Promise<BookResponseType> => {
-  // console.log(`options@@@: ${options.authorId}`);
-    
-  const response = await instance.post("/books", options, {
-    headers: { "Content-Type": "multipart/form-data" },
-  });
+export const addBook = async (options: BookAddOptions)
+: Promise<BookResponseType> => {  
+  const response = await instance.post("/books", options);
   return response.data;
 };
 
 export const uploadFile = async (options: any): Promise<String> => {
   const response = await instance.post("books/cover",options, {
-    headers: { "Content-Type": "multipart/form-data" },
+    //headers: { "Content-Type": "multipart/form-data" },
   });
   return response.data.fileName;
 };
@@ -55,5 +63,10 @@ export const getGenres = async (): Promise<GenresResponseType> => {
 
 export const getAuthors = async (): Promise<AuthorsResponseType> => {
   const response = await instance.get("/books/authors")
+  return response.data;
+};
+
+export const getBooks = async (options: GetBookOptions): Promise<BookResponseType> => {
+  const response = await instance.get("/books", {data: options}) 
   return response.data;
 };

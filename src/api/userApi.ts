@@ -13,9 +13,10 @@ export type UserCreateOptions = {
   password: string;
 }
 export type UserEditOptions = {
-  name: string;
+  fullName: string;
   dob: string;
   password: string;
+  avatarRef: string
 }
 
 export type UserResponseType = {
@@ -56,9 +57,15 @@ export const userDelete = async (): Promise<UserResponseType> => {
 export const userEdit = async (options: UserEditOptions): Promise<UserResponseType> => {
   const response = await instance.patch('/users',
     {
-      fullName: options.name,
+      fullName: options.fullName,
       dob: options.dob,
       password: options.password,
+      avatarRef: options.avatarRef,
     });
   return response.data;
 };
+
+export const getUserById = async ():Promise<UserResponseType> => {
+  const response = await instance.get("/users");
+  return response.data;
+}

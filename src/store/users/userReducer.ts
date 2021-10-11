@@ -26,10 +26,10 @@ export const userReducer = (
       return {
         ...state,
         user: {
-          name: actions.payload.name,
+          fullName: actions.payload.fullName,
           dob: actions.payload.dob,
           email: actions.payload.email,
-          id: actions.payload.id
+          _id: actions.payload._id
         },
       }
     case 'SET_ERROR':

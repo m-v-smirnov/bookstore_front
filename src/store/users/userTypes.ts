@@ -14,10 +14,11 @@ export type UserActions =
   | SetClearUser
 
 export type User = {
-  name: string;
+  fullName: string;
   email: string;
   dob: string;
-  id: number;
+  _id: string;
+  avatarRefId ?: {};
 }
 
 export type UserState = {
