@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 type Props = {
 };
@@ -6,9 +6,26 @@ type Props = {
 export const Home: React.FC<Props> = (props) => {
 
   return (
-    <div>
-      <h2>Home from components</h2>
-      <Link to="/profile">Profile</Link>
-    </div>
+    <StyledDiv>
+      <div className="home-container">
+        <div>
+          Sorting
+        </div>
+        <div>
+          Books
+        </div>
+
+      </div>
+    </StyledDiv>
   );
 }
+
+const StyledDiv = styled.div`
+    .home-container {
+      margin: 0 auto;
+      width: 900px;
+      display: flex;
+      justify-content: space-around;
+    }
+
+`;

@@ -1,13 +1,13 @@
 import { useForm, SubmitHandler, appendErrors } from "react-hook-form";
 import { addBook, BookAddOptions, GenreType, getGenres, uploadFile } from "../api/bookApi";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 
 
 
 type Props = {
-
+  
 };
 
 export const AddBook: React.FC<Props> = (props) => {
@@ -46,10 +46,11 @@ export const AddBook: React.FC<Props> = (props) => {
 
     try {
       const response = await addBook(options);
-      console.log('Create book response', response)
+      console.log('Create book response', response);
     } catch (e) {
       console.log(e)
     }
+    
   }
 
   const onChangeFileLoading: React.ChangeEventHandler<HTMLInputElement>
@@ -72,7 +73,7 @@ export const AddBook: React.FC<Props> = (props) => {
     };
   return (
     <StyledDiv>
-      <div className='bookContainer'>
+      <div className='book_container'>
         <form
           className='form'
           id='book-form'
@@ -84,6 +85,9 @@ export const AddBook: React.FC<Props> = (props) => {
               src={"http://localhost:3010/static/images/" + avatarImgRef}
               alt="avatar image here"
             />
+            <label htmlFor="cover" className="custom-file-upload">
+              Upload image
+            </label>
             <input
               className='cover__button'
               onChange={onChangeFileLoading}
@@ -99,6 +103,7 @@ export const AddBook: React.FC<Props> = (props) => {
               title:
             </label>
             <input
+              className='data__input'
               type="text"
               id="title"
               {...register("title")}
@@ -110,6 +115,7 @@ export const AddBook: React.FC<Props> = (props) => {
               author:
             </label>
             <input
+              className='data__input'
               type="text"
               id="author"
               {...register("author")}
@@ -121,6 +127,7 @@ export const AddBook: React.FC<Props> = (props) => {
               genre:
             </label>
             <select
+              className='data__input'
               id="genre"
               {...register("genreId")}
             >
@@ -136,6 +143,7 @@ export const AddBook: React.FC<Props> = (props) => {
               price:
             </label>
             <input
+              className='data__input'
               type="number"
               id="price"
               {...register("price")}
@@ -147,6 +155,7 @@ export const AddBook: React.FC<Props> = (props) => {
               amount:
             </label>
             <input
+              className='data__input'
               type="number"
               id="amount"
               {...register("amount")}
@@ -158,6 +167,7 @@ export const AddBook: React.FC<Props> = (props) => {
               sale:
             </label>
             <select
+              className='data__input'
               id="sale"
               {...register("sale")}
             >
@@ -182,6 +192,7 @@ export const AddBook: React.FC<Props> = (props) => {
             {...register("description")}
           />
           <button
+            className='data__button'
             form='book-form'
             type="submit"
           >
@@ -194,8 +205,8 @@ export const AddBook: React.FC<Props> = (props) => {
 }
 
 const StyledDiv = styled.div`
-  .bookContainer {
-    background-color: whitesmoke;
+  .book_container {
+    background-color: white;
     padding: 10px;
     width: 540px;
     text-align: center;
@@ -214,12 +225,24 @@ const StyledDiv = styled.div`
     &__img {
       height: 300px;
       width: 220px;
+      margin-bottom: 20px;
     }
     &__button {
       margin-top: 10px;
+      
     }
   }
-
+  input[type="file"] {
+    display: none;
+  }
+  .custom-file-upload {
+    border: 1px solid black;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  
   .data {
     margin-left: 40px;
     width: 100%;
@@ -227,6 +250,23 @@ const StyledDiv = styled.div`
     flex-direction: column;
     &__label {
       align-self: flex-start;
+    }
+    &__input {
+      border-radius: 5px;
+      border: 1px solid black;
+      background-color: white;
+      margin-bottom: 5px;
+    }
+    &__button {
+    padding: 5px;
+    font-size: 24px;
+    font-weight: 600;
+    background-color: #0059ff;
+    border-radius: 15px;
+    border-width: 2px;
+    border: 1px solid black;
+    color: white;
+    cursor: pointer;
     }
   }
   .description {
@@ -236,6 +276,9 @@ const StyledDiv = styled.div`
     &__textarea {
       margin-bottom: 20px;
       height: 140px;
+      border-radius: 5px;
+      border: 1px solid black
+
     }
     &__label {
       align-self: flex-start;

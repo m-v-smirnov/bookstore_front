@@ -29,8 +29,19 @@ export const userReducer = (
           fullName: actions.payload.fullName,
           dob: actions.payload.dob,
           email: actions.payload.email,
-          _id: actions.payload._id
+          //_id: actions.payload._id,
+          avatarRef: actions.payload.avatarRef
         },
+      }
+    case 'EDIT_USER':
+      return {
+        ...state,
+        user: {
+          email: state.user? state.user.email : "default@default.com",
+          fullName: actions.payload.fullName,
+          dob: actions.payload.dob,
+          avatarRef: actions.payload.avatarRef,
+        }
       }
     case 'SET_ERROR':
       return {

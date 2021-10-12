@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import { uploadFile } from '../api/bookApi';
-import { getUserById, UserEditOptions, UserResponseType } from '../api/userApi';
+import { getUserById, userEdit, UserEditOptions, UserResponseType } from '../api/userApi';
 import React, { useEffect, useState } from 'react';
-import { useForm, SubmitHandler, appendErrors } from "react-hook-form";
+import { useForm, SubmitHandler, appendErrors, useFormState } from "react-hook-form";
 import { User } from '../store/users/userTypes';
+import { useAppDispatch, useAppSelector } from '../hooks';
+import { editUser, editUserThunk } from '../store/users/userActions';
 
 
 
@@ -12,27 +14,23 @@ type Props = {
 };
 
 export const EditUser: React.FC<Props> = (props) => {
-  const [user, setUser] = useState<User>();
+  const dispatch: any = useAppDispatch();
+  const { user } = useAppSelector((state) => state.user);
 
-  const [avatarImgRef, setAvatarImgRef]
-    = useState("defaultavatar.png");
-
-  const { register, handleSubmit,
+  const { register, handleSubmit, setValue,
     formState: { errors }
   } = useForm<UserEditOptions>();
 
+  const avatarRef = user ? user.avatarRef : "defaultavatar.png";
+  const fullName = user ? user.fullName : "USER BY DEFAULT";
+  const dob = user ? user.dob : "1900-01-01";
   useEffect(() => {
-    const getUserData = async () => {
-      try {
-        const result = await getUserById();
-        setUser(result.user);
 
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getUserData();
+    setValue('fullName', fullName);
+    setValue('dob', dob.slice(0, 10))
+
   }, []);
+
 
   const onSubmit: SubmitHandler<UserEditOptions> = async (data) => {
 
@@ -40,11 +38,11 @@ export const EditUser: React.FC<Props> = (props) => {
       dob: data.dob,
       fullName: data.fullName,
       password: data.password,
-      avatarRef: avatarImgRef
+      avatarRef: avatarRef
     };
 
     try {
-
+      dispatch(editUserThunk(options));
     } catch (e) {
       console.log(e)
     }
@@ -60,7 +58,11 @@ export const EditUser: React.FC<Props> = (props) => {
 
       try {
         const response = await uploadFile(formData);
-        setAvatarImgRef("" + response);
+        dispatch(editUser({
+          fullName,
+          dob,
+          avatarRef: response.toString(),
+        }));
         console.log(`File uploading response : ${response}`);
 
       } catch (error) {
@@ -80,9 +82,12 @@ export const EditUser: React.FC<Props> = (props) => {
           <div className='avatar'>
             <img
               className='avatar__img'
-              src={"http://localhost:3010/static/images/" + avatarImgRef}
+              src={"http://localhost:3010/static/images/" + avatarRef}
               alt="avatar image here"
             />
+            <label htmlFor="avatar" className="custom-file-upload">
+              Upload image
+            </label>
             <input
               className='avatar__button'
               onChange={onChangeFileLoading}
@@ -98,7 +103,7 @@ export const EditUser: React.FC<Props> = (props) => {
               Full Name:
             </label>
             <input
-              value={user?.fullName}
+              className='data__input'
               type="text"
               id="name"
               {...register("fullName")}
@@ -110,8 +115,8 @@ export const EditUser: React.FC<Props> = (props) => {
               Date of birth:
             </label>
             <input
-              value={user?.dob}
-              type="text"
+              className='data__input'
+              type="date"
               id="dob"
               {...register("dob")}
             />
@@ -122,6 +127,7 @@ export const EditUser: React.FC<Props> = (props) => {
               password:
             </label>
             <input
+              className='data__input'
               type="password"
               id="password"
               {...register("password")}
@@ -129,6 +135,7 @@ export const EditUser: React.FC<Props> = (props) => {
           </div>
         </form>
         <button
+          className='data__button'
           form='user-form'
           type="submit"
         >
@@ -141,7 +148,7 @@ export const EditUser: React.FC<Props> = (props) => {
 
 const StyledDiv = styled.div`
   .user_container {
-    background-color: whitesmoke;
+    background-color: white;
     padding: 10px;
     width: 540px;
     text-align: center;
@@ -160,12 +167,23 @@ const StyledDiv = styled.div`
     &__img {
       border-radius: 100%;
       width: 220px;
+      margin-bottom: 20px;
     }
     &__button {
-      margin-top: 10px;
+      
     }
   }
 
+  input[type="file"] {
+    display: none;
+  }
+  .custom-file-upload {
+    border: 1px solid black;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+ }
   .data {
     margin-left: 40px;
     width: 100%;
@@ -174,5 +192,24 @@ const StyledDiv = styled.div`
     &__label {
       align-self: flex-start;
     }
+    &__input {
+      border-radius: 5px;
+      border: 1px solid black;
+      background-color: white;
+      margin-bottom: 5px;
+    }
+    &__button {
+    margin-top: 20px;
+    padding: 5px;
+    font-size: 24px;
+    font-weight: 600;
+    background-color: #0059ff;
+    border-radius: 15px;
+    border-width: 2px;
+    border: 1px solid black;
+    color: white;
+    cursor: pointer;
+    }
+    
   }
   `;

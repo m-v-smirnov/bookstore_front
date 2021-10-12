@@ -2,6 +2,8 @@ import { AppDispatch } from "../index";
 import {
   userCreate,
   UserCreateOptions,
+  userEdit,
+  UserEditOptions,
   userLogin,
   userLoginByToken,
   UserLoginOptions,
@@ -40,6 +42,13 @@ export const setError = (options: string): UserActions => {
   }
 }
 
+export const editUser = (options: UserEditOptions): UserActions => {
+  return {
+    type: 'EDIT_USER',
+    payload: options
+  }
+}
+
 
 
 
@@ -49,7 +58,7 @@ export const loginUserThunk =
     try {
       dispatch(setStartLoading())
       const response = await userLogin(options);
-      dispatch(setUser(response.user))
+      dispatch(setUser(response.user));
       return true
     } catch (e: any) {
       dispatch(setError(e.response.data.message))
@@ -79,6 +88,21 @@ export const createUserThunk =
     try {
       dispatch(setStartLoading())
       const response = await userCreate(options);
+      dispatch(setUser(response.user))
+      return true
+    } catch (e: any) {
+      dispatch(setError(e.response.data.message))
+      return false
+    } finally {
+      dispatch(setFinishLoading())
+    }
+  }
+
+  export const editUserThunk =
+  (options: UserEditOptions) => async (dispatch: AppDispatch) => {
+    try {
+      dispatch(setStartLoading())
+      const response = await userEdit(options);
       dispatch(setUser(response.user))
       return true
     } catch (e: any) {

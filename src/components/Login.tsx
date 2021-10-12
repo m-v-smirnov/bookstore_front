@@ -56,8 +56,8 @@ const StyledDiv = styled.div`
     padding: 5px;
     font-size: 24px;
     font-weight: 600;
-    background-color: blueviolet;
-    border-radius: 18px;
+    background-color: #0059ff;
+    border-radius: 15px;
     border-width: 2px;
     border: 1px solid black;
     color: white;
@@ -67,7 +67,7 @@ const StyledDiv = styled.div`
     font-size: 24px;
     font-weight: 600;
     background-color: white;
-    border-radius: 18px;
+    border-radius: 15px;
     border-width: 2px;
     border: 1px solid black;
     color: black;

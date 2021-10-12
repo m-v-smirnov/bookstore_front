@@ -15,8 +15,8 @@ export type UserCreateOptions = {
 export type UserEditOptions = {
   fullName: string;
   dob: string;
-  password: string;
-  avatarRef: string
+  password?: string;
+  avatarRef: string;
 }
 
 export type UserResponseType = {

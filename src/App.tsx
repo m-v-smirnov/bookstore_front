@@ -16,6 +16,7 @@ import { loginByTokenThunk } from './store/users/userActions';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { Header } from './components/Header';
 
 export default function App() {
   const dispatch: any = useAppDispatch();
@@ -42,6 +43,7 @@ export default function App() {
 
   return (
     <Router>
+      <Header />
       <div>
         {isLoaded
           ? <Switch>
