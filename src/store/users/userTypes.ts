@@ -21,7 +21,6 @@ export type User = {
   fullName: string;
   email: string;
   dob: string;
-  //_id: string;
   avatarRef : string;
 }
 

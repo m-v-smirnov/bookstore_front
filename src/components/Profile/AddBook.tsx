@@ -1,7 +1,8 @@
-import { useForm, SubmitHandler, appendErrors } from "react-hook-form";
-import { addBook, BookAddOptions, GenreType, getGenres, uploadFile } from "../api/bookApi";
+import { useForm, SubmitHandler} from "react-hook-form";
+import { addBook, BookAddOptions, GenreType, getGenres, uploadFile } from "../../api/bookApi";
 import styled from "styled-components";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { DEFAULT_COVER, IMAGES_URL } from "../../constants/constants";
 
 
 
@@ -13,10 +14,10 @@ type Props = {
 export const AddBook: React.FC<Props> = (props) => {
   const [genreArray, setGenre] = useState<GenreType[]>([]);
 
-  const [avatarImgRef, setAvatarImgRef] = useState("defaultcover.png");
+  const [avatarImgRef, setAvatarImgRef] = useState(DEFAULT_COVER);
 
   const { register, handleSubmit,
-    formState: { errors }
+    // formState: { errors }
   } = useForm<BookAddOptions>();
 
   useEffect(() => {
@@ -82,8 +83,8 @@ export const AddBook: React.FC<Props> = (props) => {
           <div className='cover'>
             <img
               className='cover__img'
-              src={"http://localhost:3010/static/images/" + avatarImgRef}
-              alt="avatar image here"
+              src={IMAGES_URL + avatarImgRef}
+              alt="avatar here"
             />
             <label htmlFor="cover" className="custom-file-upload">
               Upload image

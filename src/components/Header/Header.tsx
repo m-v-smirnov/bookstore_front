@@ -1,18 +1,21 @@
 import styled from "styled-components";
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { DEFAULT_AVATAR, IMAGES_URL } from "../../constants/constants";
+import {  useAppSelector } from "../../hooks";
 import { LoginButton } from "./LoginButton";
 import { LogoutButton } from "./LogoutButton";
 
-const logo = "http://localhost:3010/static/images/bookstore.png"
+const logo = IMAGES_URL + "bookstore.png"
+
+
 
 type Props = {
 
 };
 
 export const Header: React.FC<Props> = (props) => {
-  const dispatch: any = useAppDispatch();
+  //const dispatch: any = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
-  const avatar = "http://localhost:3010/static/images/" + (user ? user.avatarRef : "defaultavatar.png");
+  const avatar = IMAGES_URL + (user ? user.avatarRef : DEFAULT_AVATAR);
 
   return (
     <StyledDiv>
@@ -39,11 +42,11 @@ export const Header: React.FC<Props> = (props) => {
 
 const StyledDiv = styled.div`
   .header {
-    border-bottom: 1px solid lightgrey
+    border-bottom: 1px solid lightgrey;
   }
   .header_content {
     margin: 0 auto;
-    width: 1000px;
+    width: 1100px;
     display: flex;
     justify-content: space-between;
     

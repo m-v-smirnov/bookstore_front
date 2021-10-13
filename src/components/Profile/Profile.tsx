@@ -12,7 +12,6 @@ type Props = {
 
 export const Profile: React.FC<Props> = (props) => {
   const [editUser, setEditUser] = useState(false);
-  const [addBookFlag, setAddBookFlag] = useState(false);
   return (
     <StyledDiv>
       <div className="container">

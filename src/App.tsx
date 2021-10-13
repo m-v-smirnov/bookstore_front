@@ -1,7 +1,8 @@
 import './App.css';
-import { Login } from './components/Login';
-import { Home } from './components/Home';
-import { Profile } from './components/Profile';
+import { Login } from './components/Login/Login';
+import { Home } from './components/Home/Home';
+import { Profile } from './components/Profile/Profile';
+import { Header } from './components/Header/Header';
 import {
   BrowserRouter as Router,
   Switch,
@@ -16,7 +17,6 @@ import { loginByTokenThunk } from './store/users/userActions';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Header } from './components/Header';
 
 export default function App() {
   const dispatch: any = useAppDispatch();

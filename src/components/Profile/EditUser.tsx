@@ -1,11 +1,11 @@
 import styled from 'styled-components';
-import { uploadFile } from '../api/bookApi';
-import { getUserById, userEdit, UserEditOptions, UserResponseType } from '../api/userApi';
-import React, { useEffect, useState } from 'react';
-import { useForm, SubmitHandler, appendErrors, useFormState } from "react-hook-form";
-import { User } from '../store/users/userTypes';
-import { useAppDispatch, useAppSelector } from '../hooks';
-import { editUser, editUserThunk } from '../store/users/userActions';
+import { uploadFile } from '../../api/bookApi';
+import { UserEditOptions } from '../../api/userApi';
+import React, {useEffect} from 'react';
+import { useForm, SubmitHandler} from "react-hook-form";
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { editUser, editUserThunk } from '../../store/users/userActions';
+import { DEFAULT_AVATAR, IMAGES_URL } from '../../constants/constants';
 
 
 
@@ -21,9 +21,10 @@ export const EditUser: React.FC<Props> = (props) => {
     formState: { errors }
   } = useForm<UserEditOptions>();
 
-  const avatarRef = user ? user.avatarRef : "defaultavatar.png";
+  const avatarRef = user ? user.avatarRef : DEFAULT_AVATAR;
   const fullName = user ? user.fullName : "USER BY DEFAULT";
   const dob = user ? user.dob : "1900-01-01";
+  
   useEffect(() => {
 
     setValue('fullName', fullName);
@@ -82,7 +83,7 @@ export const EditUser: React.FC<Props> = (props) => {
           <div className='avatar'>
             <img
               className='avatar__img'
-              src={"http://localhost:3010/static/images/" + avatarRef}
+              src={IMAGES_URL + avatarRef}
               alt="avatar image here"
             />
             <label htmlFor="avatar" className="custom-file-upload">

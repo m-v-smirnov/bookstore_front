@@ -1,5 +1,5 @@
-import { useAppDispatch } from "../hooks";
-import { setClearUser } from "../store/users/userActions";
+import { useAppDispatch } from "../../hooks";
+import { setClearUser } from "../../store/users/userActions";
 
 type Props = {
 };

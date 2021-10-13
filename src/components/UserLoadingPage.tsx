@@ -1,5 +1,8 @@
-import loadingPicture from '../images/loading.gif';
+//import loadingPicture from '../images/loading.gif';
 
+import { IMAGES_URL } from "../constants/constants";
+
+const loadingPicture = IMAGES_URL + 'loading.gif';
 
 type Props = {
 };

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BookAddOptions, BookResponseType, GetBookOptions, getBooks } from '../api/bookApi';
+import {  BookType, GetBookOptions, getBooks } from '../../api/bookApi';
 
 
 type Props = {
- 
+
 };
 
 export const BookList: React.FC<Props> = (props) => {
-  const [books, setBooks] = useState<BookAddOptions[]>([]);
+  const [books, setBooks] = useState<BookType[]>([]);
 
   useEffect(() => {
-    const options: GetBookOptions = {};
+    const options: GetBookOptions = { getMyBooks: true };
     const getBooksData = async () => {
       try {
         const result = await getBooks(options);
@@ -21,7 +21,7 @@ export const BookList: React.FC<Props> = (props) => {
       }
     }
     getBooksData();
-  },[])
+  }, [])
 
   return (
     <StyledDiv>
@@ -30,7 +30,11 @@ export const BookList: React.FC<Props> = (props) => {
         <ol>
           {books.map((item) => {
             return (
-              <li key={item._id}>{item.title}</li>
+              <li
+                key={item._id}
+              >
+                {item.title}
+              </li>
             )
           })}
         </ol>
