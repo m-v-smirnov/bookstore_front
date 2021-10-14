@@ -6,6 +6,7 @@ import { createUserThunk } from '../../store/users/userActions';
 
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import { StyledButton, StyledInput } from '../StyledComponents';
 
 const schema = yup.object({
   name: yup.string().required(),
@@ -53,13 +54,13 @@ export const RegisterPage: React.FC<Props> = (props) => {
         >
           Name:
         </label>
-        <input
+        <StyledInput
           className='container__input'
           id="GET-name"
           type="text"
           {...register("name")}
         >
-        </input>
+        </StyledInput>
         <p className='container__input--error'>
           {errors.name?.message}
         </p>
@@ -69,13 +70,13 @@ export const RegisterPage: React.FC<Props> = (props) => {
         >
           Email:
         </label>
-        <input
-          className='container__input'
+        <StyledInput
+        className='container__input'
           id="GET-email"
           type="text"
           {...register("email")}
         >
-        </input>
+        </StyledInput>
         <p className='container__input--error'>
           {errors.email?.message}
         </p>
@@ -85,13 +86,13 @@ export const RegisterPage: React.FC<Props> = (props) => {
         >
           Date of birth:
         </label>
-        <input
-          className='container__input'
+        <StyledInput
+        className='container__input'
           id="GET-dob"
           type="date"
           {...register("dob")}
         >
-        </input>
+        </StyledInput>
         <p className='container__input--error'>
           {errors.dob?.message}
         </p>
@@ -101,30 +102,31 @@ export const RegisterPage: React.FC<Props> = (props) => {
         >
           Password:
         </label>
-        <input
-          className='container__input'
+        <StyledInput
+        className='container__input'
           id="GET-pass"
           type="password"
           {...register("password")}
         >
-        </input>
+        </StyledInput>
         <p className='container__input--error'>
           {errors.password?.message}
         </p>
-        <input
+        <StyledButton
           type="submit"
-          className='container__button--blue'
+          className='container__button'
         >
-        </input>
+          Create
+        </StyledButton>
 
       </form>
-      <h3>Already have an account?</h3>
-      <button
-        className='container__button--white'
+      <p className='container__text'>Already have an account?</p>
+      <StyledButton
+        className='container__button'
         onClick={deactivateRegPage}
       >
         Sign in
-      </button>
+      </StyledButton>
     </div>
 
   );

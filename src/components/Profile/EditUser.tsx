@@ -6,6 +6,7 @@ import { useForm, SubmitHandler} from "react-hook-form";
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { editUser, editUserThunk } from '../../store/users/userActions';
 import { DEFAULT_AVATAR, IMAGES_URL } from '../../constants/constants';
+import { StyledButton, StyledInput } from '../StyledComponents';
 
 
 
@@ -89,7 +90,7 @@ export const EditUser: React.FC<Props> = (props) => {
             <label htmlFor="avatar" className="custom-file-upload">
               Upload image
             </label>
-            <input
+            <StyledInput
               className='avatar__button'
               onChange={onChangeFileLoading}
               type="file"
@@ -103,7 +104,7 @@ export const EditUser: React.FC<Props> = (props) => {
             >
               Full Name:
             </label>
-            <input
+            <StyledInput
               className='data__input'
               type="text"
               id="name"
@@ -115,7 +116,7 @@ export const EditUser: React.FC<Props> = (props) => {
             >
               Date of birth:
             </label>
-            <input
+            <StyledInput
               className='data__input'
               type="date"
               id="dob"
@@ -125,9 +126,9 @@ export const EditUser: React.FC<Props> = (props) => {
               className='data__label'
               htmlFor="password"
             >
-              password:
+              Password:
             </label>
-            <input
+            <StyledInput
               className='data__input'
               type="password"
               id="password"
@@ -135,13 +136,13 @@ export const EditUser: React.FC<Props> = (props) => {
             />
           </div>
         </form>
-        <button
+        <StyledButton
           className='data__button'
           form='user-form'
           type="submit"
         >
           Edit user
-        </button>
+        </StyledButton>
       </div>
     </StyledDiv >
   )
@@ -179,11 +180,17 @@ const StyledDiv = styled.div`
     display: none;
   }
   .custom-file-upload {
-    border: 1px solid black;
+    padding: 0 auto;
+    height: 22px;
+    width: 80%;
+    border: none;
     border-radius: 10px;
-    display: inline-block;
-    padding: 6px 12px;
+    background-color: #0059ff;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
+    align-self: center;
  }
   .data {
     margin-left: 40px;
@@ -194,14 +201,16 @@ const StyledDiv = styled.div`
       align-self: flex-start;
     }
     &__input {
-      border-radius: 5px;
-      border: 1px solid black;
-      background-color: white;
-      margin-bottom: 5px;
+      
+      
+      
+      margin-bottom: 15px;
     }
     &__button {
     margin-top: 20px;
-    padding: 5px;
+    align-self: flex-end;
+    width: 40%;
+    /* padding: 5px;
     font-size: 24px;
     font-weight: 600;
     background-color: #0059ff;
@@ -209,7 +218,7 @@ const StyledDiv = styled.div`
     border-width: 2px;
     border: 1px solid black;
     color: white;
-    cursor: pointer;
+    cursor: pointer; */
     }
     
   }

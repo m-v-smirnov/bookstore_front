@@ -6,6 +6,8 @@ import * as yup from "yup";
 import { UserLoginOptions } from '../../api/userApi';
 import { useAppDispatch } from '../../hooks';
 import { loginUserThunk } from '../../store/users/userActions';
+import { CommonInput } from '../CommonComponents';
+import { StyledButton, StyledInput } from '../StyledComponents';
 
 
 
@@ -52,12 +54,12 @@ export const LoginPage: React.FC<Props> = (props) => {
         >
           Email:
         </label>
-        <input
+        <StyledInput
           className='container__input'
           id="GET-email"
           {...register("email")}
         >
-        </input>
+        </StyledInput>
         <p className='container__input--error'>
           {errors.email?.message}
         </p>
@@ -67,30 +69,31 @@ export const LoginPage: React.FC<Props> = (props) => {
         >
           Password:
         </label>
-        <input
+        <StyledInput
           className='container__input'
           id="GET-pass"
           type="password"
           {...register("password")}
         >
-        </input>
+        </StyledInput>
         <p className='container__input--error'>
           {errors.password?.message}</p>
-        <input
+        <StyledButton
           type="submit"
-          className='container__button--blue'
+          className='container__button'
           value='sign in'
         >
-        </input>
+          Sign in
+        </StyledButton>
 
       </form>
-      <h3>Don't have an account?</h3>
-      <button
-        className='container__button--white'
+      <p className="container__text">Don't have an account?</p>
+      <StyledButton
+        className='container__button'
         onClick={activateRegisterPage}
       >
         Create an account
-      </button>
+      </StyledButton>
     </div>
   );
 }

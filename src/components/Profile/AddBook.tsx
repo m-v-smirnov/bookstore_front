@@ -1,14 +1,15 @@
-import { useForm, SubmitHandler} from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { addBook, BookAddOptions, GenreType, getGenres, uploadFile } from "../../api/bookApi";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { DEFAULT_COVER, IMAGES_URL } from "../../constants/constants";
+import { StyledButton, StyledInput, StyledSelect } from "../StyledComponents";
 
 
 
 
 type Props = {
-  
+
 };
 
 export const AddBook: React.FC<Props> = (props) => {
@@ -51,7 +52,7 @@ export const AddBook: React.FC<Props> = (props) => {
     } catch (e) {
       console.log(e)
     }
-    
+
   }
 
   const onChangeFileLoading: React.ChangeEventHandler<HTMLInputElement>
@@ -101,9 +102,9 @@ export const AddBook: React.FC<Props> = (props) => {
               className='data__label'
               htmlFor="title"
             >
-              title:
+              Title:
             </label>
-            <input
+            <StyledInput
               className='data__input'
               type="text"
               id="title"
@@ -113,9 +114,9 @@ export const AddBook: React.FC<Props> = (props) => {
               className='data__label'
               htmlFor="author"
             >
-              author:
+              Author:
             </label>
-            <input
+            <StyledInput
               className='data__input'
               type="text"
               id="author"
@@ -125,25 +126,25 @@ export const AddBook: React.FC<Props> = (props) => {
               className='data__label'
               htmlFor="genre"
             >
-              genre:
+              Genre:
             </label>
-            <select
+            <StyledSelect
               className='data__input'
               id="genre"
               {...register("genreId")}
             >
-              <option hidden value="">choose genre</option>
+              <option hidden disabled value="">choose genre</option>
               {genreArray.map((item) => {
                 return <option value={item._id} key={item._id} >{item.name}</option>
               })}
-            </select>
+            </StyledSelect>
             <label
               className='data__label'
               htmlFor="price"
             >
-              price:
+              Price:
             </label>
-            <input
+            <StyledInput
               className='data__input'
               type="number"
               id="price"
@@ -153,9 +154,9 @@ export const AddBook: React.FC<Props> = (props) => {
               className='data__label'
               htmlFor="amount"
             >
-              amount:
+              Amount:
             </label>
-            <input
+            <StyledInput
               className='data__input'
               type="number"
               id="amount"
@@ -165,17 +166,17 @@ export const AddBook: React.FC<Props> = (props) => {
               className='data__label'
               htmlFor="sale"
             >
-              sale:
+              Sale:
             </label>
-            <select
+            <StyledSelect
               className='data__input'
               id="sale"
               {...register("sale")}
             >
-              <option hidden value="">choose</option>
-              <option value="true">sale</option>
+              <option hidden disabled value="">choose</option>
               <option value="false">regular price</option>
-            </select>
+              <option value="true">sale</option>
+            </StyledSelect>
           </div>
         </form>
         <div className="description">
@@ -184,7 +185,7 @@ export const AddBook: React.FC<Props> = (props) => {
             htmlFor="description"
             form='book-form'
           >
-            description:
+            Description:
           </label>
           <textarea
             className="description__textarea"
@@ -192,13 +193,13 @@ export const AddBook: React.FC<Props> = (props) => {
             id="description"
             {...register("description")}
           />
-          <button
+          <StyledButton
             className='data__button'
             form='book-form'
             type="submit"
           >
             Add book
-          </button>
+          </StyledButton>
         </div>
       </div>
     </StyledDiv>
@@ -209,7 +210,7 @@ const StyledDiv = styled.div`
   .book_container {
     background-color: white;
     padding: 10px;
-    width: 540px;
+    width: 580px;
     text-align: center;
     border-radius: 5px;
     display: flex;
@@ -220,7 +221,7 @@ const StyledDiv = styled.div`
     justify-content: space-between;
   }
   .cover {
-    
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     &__img {
@@ -231,17 +232,24 @@ const StyledDiv = styled.div`
     &__button {
       margin-top: 10px;
       
+      
     }
   }
   input[type="file"] {
     display: none;
   }
   .custom-file-upload {
-    border: 1px solid black;
+    padding: 0 auto;
+    height: 22px;
+    width: 80%;
+    border: none;
     border-radius: 10px;
-    display: inline-block;
-    padding: 6px 12px;
+    background-color: #0059ff;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
+    align-self: center;
   }
   
   .data {
@@ -253,21 +261,11 @@ const StyledDiv = styled.div`
       align-self: flex-start;
     }
     &__input {
-      border-radius: 5px;
-      border: 1px solid black;
-      background-color: white;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
     &__button {
-    padding: 5px;
-    font-size: 24px;
-    font-weight: 600;
-    background-color: #0059ff;
-    border-radius: 15px;
-    border-width: 2px;
-    border: 1px solid black;
-    color: white;
-    cursor: pointer;
+      align-self: flex-end;
+      width: 40%;
     }
   }
   .description {
@@ -277,8 +275,11 @@ const StyledDiv = styled.div`
     &__textarea {
       margin-bottom: 20px;
       height: 140px;
-      border-radius: 5px;
-      border: 1px solid black
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: 1px solid #5d97ff;
+      outline: none;
+      resize: none;
 
     }
     &__label {

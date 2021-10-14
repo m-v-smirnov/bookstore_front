@@ -20,7 +20,7 @@ export const Home: React.FC<Props> = (props) => {
 const StyledDiv = styled.div`
     .home-container {
       margin: 0 auto;
-      width: 1000px;
+      width: 1100px;
       display: flex;
       justify-content: space-around;
     }

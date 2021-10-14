@@ -1,6 +1,7 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { DEFAULT_AVATAR, IMAGES_URL } from "../../constants/constants";
-import {  useAppSelector } from "../../hooks";
+import { useAppSelector } from "../../hooks";
 import { LoginButton } from "./LoginButton";
 import { LogoutButton } from "./LogoutButton";
 
@@ -21,14 +22,14 @@ export const Header: React.FC<Props> = (props) => {
     <StyledDiv>
       <div className="header">
         <div className="header_content">
-          <a href="/home">
-          <img className="header_content__img" src={logo} alt="LOGO" />
-            </a>
+          <Link to="/home">
+            <img className="header_content__img" src={logo} alt="LOGO" />
+          </Link>
           {user
             ? <div className="header_content__div">
-              <a href="/profile">
+              <Link to="/profile">
                 <img className="header_content__avatar" src={avatar} alt="avatar" />
-              </a>
+              </Link>
               <LogoutButton />
             </div>
             :
@@ -56,7 +57,7 @@ const StyledDiv = styled.div`
     &__avatar {
       margin : 0 10px;
       border-radius: 100%;
-      width: 40px;
+      width: 50px;
       
     }
     &__div {
@@ -65,17 +66,14 @@ const StyledDiv = styled.div`
     }
   }
   .logout_button {
-    width: 80px;
-    height: 30px;
-    border-radius: 10px;
-    border: 1px solid black;
+    width: 50px;
+    height: 50px;
     align-self: center;
     text-align: center;
-    text-decoration: none;
-    color: black;
+    color: #0059ff;;
     font-size: 14px;
     cursor: pointer;
-    font-weight: 500;
-    vertical-align: middle;
+    border: 0;
+    background-color: white;
   }
 `;

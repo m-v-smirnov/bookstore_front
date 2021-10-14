@@ -41,7 +41,7 @@ export const BooksArea: React.FC<Props> = (props) => {
 const StyledDiv = styled.div`
     .books-container {
       margin: 0 10px;
-      width: 680px;
+      width: 720px;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;

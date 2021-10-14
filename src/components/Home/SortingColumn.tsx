@@ -20,7 +20,7 @@ export const SortingColumns: React.FC<Props> = (props) => {
 const StyledDiv = styled.div`
     .sorting-container {
       margin: 0 10px;
-      width: 180px;
+      width: 200px;
       display: flex;
       flex-direction: column;
     }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { StyledButton } from '../StyledComponents';
 
 
 import { AddBook } from './AddBook';
@@ -17,14 +18,14 @@ export const Profile: React.FC<Props> = (props) => {
       <div className="container">
         <h1>Profile</h1>
         <div className='tabs'>
-          <button
-            className='tabs__button'
-            onClick={() => { setEditUser(false) }}
-          >Add book</button>
-          <button
-            className='tabs__button'
+          <StyledButton
+            className={!editUser? 'tabs__button--inactive':'tabs__button'}
             onClick={() => { setEditUser(true) }}
-          >Edit user</button>
+          >Edit user</StyledButton>
+          <StyledButton
+            className={editUser? 'tabs__button--inactive':'tabs__button'}
+            onClick={() => { setEditUser(false) }}
+          >Add book</StyledButton>
         </div>
         <div className='profile-page'>
           {editUser
@@ -49,18 +50,27 @@ const StyledDiv = styled.div`
   }
   .profile-page {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
+    align-items: center;
   }
   
   .tabs {
-    align-self: flex-start;
+    align-self: center;
+    display: flex;
     margin-bottom: 15px;
     &__button {
-      background-color: white;
+      width: 100px;
       cursor: pointer;
-      border-width: 0;
+      margin: 0 40px;
       font-size: 18px;
-      font-weight: 600;
+    }
+    &__button--inactive {
+      width: 100px;
+      background-color: grey;
+      cursor: pointer;
+      margin: 0 40px;
+      font-size: 18px;
     }
   }
 `;

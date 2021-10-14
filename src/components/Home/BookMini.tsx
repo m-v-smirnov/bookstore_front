@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { BookType } from "../../api/bookApi";
 import { IMAGES_URL } from "../../constants/constants";
+import { StyledButton } from "../StyledComponents";
 
 type Props = {
   book: BookType
@@ -14,28 +15,28 @@ export const BookMini: React.FC<Props> = (props) => {
   return (
     <StyledDiv>
       <div className="book-mini">
-        <img
-          className="book-mini__cover"
-          src={cover}
-          alt="cover"
-        />
-        <p>
-          {props.book.author}
-        </p>
-        <p>
-          {props.book.title}
-        </p>
-        <div>
-          <p>
-            {props.book.price} rub
-          </p>
-          <p>
-            SALE
-          </p>
+        <div >
+          <img
+            className="book-mini__cover"
+            src={cover}
+            alt="cover"
+          />
         </div>
-        <button>
+        <div className="book-mini__text">
+          <p className="book-mini__author">{props.book.author}</p>
+          <p className="book-mini__title">{props.book.title}</p>
+        </div>
+        <div className="book-mini__div">
+          <p className="book-mini__price">{props.book.price} rub </p>
+          {props.book.sale
+          ? <p className="book-mini__sale">SALE</p>
+          : <p></p>
+        }
+          
+        </div>
+        <StyledButton className="book-mini__button">
           Add
-        </button>
+        </StyledButton>
       </div>
     </StyledDiv>
   )
@@ -43,37 +44,61 @@ export const BookMini: React.FC<Props> = (props) => {
 
 const StyledDiv = styled.div`
   .book-mini {
-    margin: 10px auto;
-    height: 400px;
-    width: 140px;
+    padding: 10px;
+    background-color: #d3d3d387;
+    border-radius: 10px;
+    margin: 20px auto;
+    height: 450px;
+    width: 200px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    
+    align-items: center;
       &__cover {
-        width: 80%;
-        height: 100%;
+        width: 180px;
+        height: 280px;
         margin: 0 auto;
+        object-fit: contain;
+        
       }
-
+    
+      &__text {
+        align-self: flex-start;
+      }
       &__author {
-
+        color: grey;
+        font-size: 18px;
+        padding: 0;
+        margin: 0;
+        
       }
 
       &__title {
-
+        font-size: 24px;
+        padding: 0;
+        margin: 0;
       }
-
+      &__div {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+      }
       &__price {
-
+        font-size: 22px;
+        font-weight: 600;
       }
       
       &__sale {
-
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 24px;
+        font-weight: 600;
+        background-color: red;
+        color: yellow;
       }
 
       &__button {
-        
+        width: 75%;
       }
   }
 `;

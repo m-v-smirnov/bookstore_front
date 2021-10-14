@@ -3,9 +3,10 @@ import { instance } from ".";
 
 
 export type UserLoginOptions = {
-  email: string;
   password: string;
+  email: string;
 }
+
 export type UserCreateOptions = {
   name: string;
   email: string;

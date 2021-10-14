@@ -1,3 +1,5 @@
+import { Icon } from 'react-icons-kit';
+import {ic_login} from 'react-icons-kit/md/ic_login'
 
 type Props = {
 
@@ -9,7 +11,7 @@ export const LoginButton: React.FC<Props> = (props) => {
     <button
       className="logout_button"
       onClick={() => { window.location.href = '/login' }}>
-      Login
+      <Icon size={'100%'} icon={ic_login} />
     </button>
 
   )
