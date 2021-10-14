@@ -23,6 +23,9 @@ export const StyledButton = styled.button`
   font-size: 24px;
   font-weight: 600;
   cursor: pointer;
+  &:hover {
+    background-color: #00379e;
+  }
 `;
 
 export const StyledSelect = styled.select`

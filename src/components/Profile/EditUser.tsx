@@ -7,7 +7,8 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { editUser, editUserThunk } from '../../store/users/userActions';
 import { DEFAULT_AVATAR, IMAGES_URL } from '../../constants/constants';
 import { StyledButton, StyledInput } from '../StyledComponents';
-
+import {Icon} from 'react-icons-kit'
+import {upload} from 'react-icons-kit/icomoon/upload'
 
 
 
@@ -87,10 +88,14 @@ export const EditUser: React.FC<Props> = (props) => {
               src={IMAGES_URL + avatarRef}
               alt="avatar image here"
             />
-            <label htmlFor="avatar" className="custom-file-upload">
-              Upload image
+            <label 
+            htmlFor="avatar" 
+            className="custom-file-upload"
+            title="upload avatar"
+            >
+              <Icon size='35%' icon={upload} />
             </label>
-            <StyledInput
+            <input
               className='avatar__button'
               onChange={onChangeFileLoading}
               type="file"
@@ -163,16 +168,16 @@ const StyledDiv = styled.div`
     justify-content: space-between;
   }
   .avatar {
-    
-    display: flex;
-    flex-direction: column;
+    position: relative;
     &__img {
       border-radius: 100%;
       width: 220px;
       margin-bottom: 20px;
     }
     &__button {
-      
+      position: absolute;
+      top: 50px;
+
     }
   }
 
@@ -180,17 +185,16 @@ const StyledDiv = styled.div`
     display: none;
   }
   .custom-file-upload {
-    padding: 0 auto;
-    height: 22px;
-    width: 80%;
-    border: none;
-    border-radius: 10px;
-    background-color: #0059ff;
-    color: white;
-    font-size: 18px;
-    font-weight: 600;
+    color: #053a9c;
     cursor: pointer;
-    align-self: center;
+    align-self: center; 
+    position: absolute;
+    top: 80px;
+    left: 0px;
+    opacity: 0;
+    &:hover {
+      opacity: 0.7;
+    }
  }
   .data {
     margin-left: 40px;
@@ -201,24 +205,12 @@ const StyledDiv = styled.div`
       align-self: flex-start;
     }
     &__input {
-      
-      
-      
       margin-bottom: 15px;
     }
     &__button {
     margin-top: 20px;
     align-self: flex-end;
     width: 40%;
-    /* padding: 5px;
-    font-size: 24px;
-    font-weight: 600;
-    background-color: #0059ff;
-    border-radius: 15px;
-    border-width: 2px;
-    border: 1px solid black;
-    color: white;
-    cursor: pointer; */
     }
     
   }

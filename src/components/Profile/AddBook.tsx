@@ -4,7 +4,8 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { DEFAULT_COVER, IMAGES_URL } from "../../constants/constants";
 import { StyledButton, StyledInput, StyledSelect } from "../StyledComponents";
-
+import { Icon } from 'react-icons-kit'
+import { upload } from 'react-icons-kit/icomoon/upload'
 
 
 
@@ -87,8 +88,12 @@ export const AddBook: React.FC<Props> = (props) => {
               src={IMAGES_URL + avatarImgRef}
               alt="avatar here"
             />
-            <label htmlFor="cover" className="custom-file-upload">
-              Upload image
+            <label 
+            htmlFor="cover" 
+            className="custom-file-upload"
+            title="upload cover"
+            >
+              <Icon size='35%' icon={upload} />
             </label>
             <input
               className='cover__button'
@@ -221,6 +226,7 @@ const StyledDiv = styled.div`
     justify-content: space-between;
   }
   .cover {
+    position: relative;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -239,17 +245,16 @@ const StyledDiv = styled.div`
     display: none;
   }
   .custom-file-upload {
-    padding: 0 auto;
-    height: 22px;
-    width: 80%;
-    border: none;
-    border-radius: 10px;
-    background-color: #0059ff;
-    color: white;
-    font-size: 18px;
-    font-weight: 600;
+    color: #0059ff;
     cursor: pointer;
-    align-self: center;
+    align-self: center; 
+    position: absolute;
+    top: 120px;
+    left: 0px;
+    opacity: 0;
+    &:hover {
+      opacity: 0.7;
+    }
   }
   
   .data {

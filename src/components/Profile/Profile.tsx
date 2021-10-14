@@ -67,10 +67,13 @@ const StyledDiv = styled.div`
     }
     &__button--inactive {
       width: 100px;
-      background-color: grey;
+      background-color: #bebebe;
       cursor: pointer;
       margin: 0 40px;
       font-size: 18px;
+      &:hover {
+        background-color: grey;
+      }
     }
   }
 `;
