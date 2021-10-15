@@ -281,10 +281,14 @@ const StyledDiv = styled.div`
       margin-bottom: 20px;
       height: 140px;
       padding: 10px 15px;
-      border-radius: 10px;
-      border: 1px solid #5d97ff;
+      border-radius: 5px;
+      border: 2px solid #5d97ff;
       outline: none;
       resize: none;
+      &:focus {
+        border-color: #0059ff;
+      }
+
 
     }
     &__label {

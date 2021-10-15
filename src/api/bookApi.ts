@@ -32,13 +32,24 @@ export type CoverType = {
 };
 
 export type GetBookOptions = {
-  genreId?: string,
-  author?: string,
-  getMyBooks?: boolean 
+  page: number,
+};
+
+export type PaginationType = {
+  totalDocs : number,
+  totalPages : number,
+  page : number,
+  hasPrevPage: boolean,
+  hasNextPage: boolean,
+  nextPage: number,
+  prevPage: number,
+  limit: number,
+  pagingCounter: number
 };
 
 export type BookResponseType = {
-  books: BookType[]
+  books: BookType[],
+  pagination: PaginationType
 };
 
 export type GenreType = {
@@ -70,7 +81,7 @@ export const addBook = async (options: BookAddOptions)
 
 export const uploadFile = async (options: any): Promise<String> => {
   const response = await instance.post("books/cover", options, {
-    //headers: { "Content-Type": "multipart/form-data" },
+    //headers: { "Content-Type": "application/x-www-form-urlencoded" },
   });
   return response.data.fileName;
 };
@@ -86,6 +97,17 @@ export const getAuthors = async (): Promise<AuthorsResponseType> => {
 };
 
 export const getBooks = async (options: GetBookOptions): Promise<BookResponseType> => {
-  const response = await instance.get("/books", { data: options })
+  const response = await instance.get("/books", {
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    params: {
+      page : options.page,
+      
+    }
+  } )
+  return response.data;
+};
+
+export const getMyBooks = async (): Promise<BookResponseType> => {
+  const response = await instance.get("/books/my-books")
   return response.data;
 };

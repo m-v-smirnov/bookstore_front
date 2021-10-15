@@ -43,9 +43,9 @@ const StyledDiv = styled.div`
         width: auto;
       }
       &__input--error{
-        padding: 0;
-        margin: 0;
-        color: red;
+        margin-bottom: 20px;
+        border-width: 2px;
+        border-color: red;
       }
       &__label {
         align-self: flex-start;

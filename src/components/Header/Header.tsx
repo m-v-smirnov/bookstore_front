@@ -23,12 +23,20 @@ export const Header: React.FC<Props> = (props) => {
       <div className="header">
         <div className="header_content">
           <Link to="/home">
-            <img className="header_content__img" src={logo} alt="LOGO" />
+            <img
+              title="home"
+              className="header_content__img"
+              src={logo} alt="LOGO"
+            />
           </Link>
           {user
             ? <div className="header_content__div">
               <Link to="/profile">
-                <img className="header_content__avatar" src={avatar} alt="avatar" />
+                <img
+                  title="profile"
+                  className="header_content__avatar"
+                  src={avatar} alt="avatar"
+                />
               </Link>
               <LogoutButton />
             </div>
@@ -57,6 +65,7 @@ const StyledDiv = styled.div`
     &__avatar {
       margin : 0 10px;
       border-radius: 100%;
+      height: 50px;
       width: 50px;
       
     }

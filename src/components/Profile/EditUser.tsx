@@ -171,6 +171,7 @@ const StyledDiv = styled.div`
     position: relative;
     &__img {
       border-radius: 100%;
+      height: 220px;
       width: 220px;
       margin-bottom: 20px;
     }

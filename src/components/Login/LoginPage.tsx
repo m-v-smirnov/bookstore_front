@@ -6,7 +6,6 @@ import * as yup from "yup";
 import { UserLoginOptions } from '../../api/userApi';
 import { useAppDispatch } from '../../hooks';
 import { loginUserThunk } from '../../store/users/userActions';
-import { CommonInput } from '../CommonComponents';
 import { StyledButton, StyledInput } from '../StyledComponents';
 
 
@@ -55,14 +54,14 @@ export const LoginPage: React.FC<Props> = (props) => {
           Email:
         </label>
         <StyledInput
-          className='container__input'
+          className={!errors.email ? 'container__input' : 'container__input--error'}
           id="GET-email"
           {...register("email")}
         >
         </StyledInput>
-        <p className='container__input--error'>
+        {/* <p className='container__input--error'>
           {errors.email?.message}
-        </p>
+        </p> */}
         <label
           className='container__label'
           htmlFor="GET-pass"
@@ -70,14 +69,15 @@ export const LoginPage: React.FC<Props> = (props) => {
           Password:
         </label>
         <StyledInput
-          className='container__input'
+          className={!errors.password ? 'container__input' : 'container__input--error'}
           id="GET-pass"
           type="password"
           {...register("password")}
         >
         </StyledInput>
-        <p className='container__input--error'>
-          {errors.password?.message}</p>
+        {/* <p className='container__input--error'>
+          {errors.password?.message}
+        </p> */}
         <StyledButton
           type="submit"
           className='container__button'

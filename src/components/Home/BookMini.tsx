@@ -46,7 +46,7 @@ const StyledDiv = styled.div`
   .book-mini {
     padding: 10px;
     background-color: #d3d3d387;
-    border-radius: 10px;
+    border-radius: 5px;
     margin: 20px auto;
     height: 450px;
     width: 200px;
@@ -85,14 +85,14 @@ const StyledDiv = styled.div`
       }
       &__price {
         font-size: 22px;
-        font-weight: 600;
+        font-weight: 500;
       }
       
       &__sale {
         padding: 5px 10px;
         border-radius: 4px;
         font-size: 24px;
-        font-weight: 600;
+        font-weight: 400;
         background-color: red;
         color: yellow;
       }

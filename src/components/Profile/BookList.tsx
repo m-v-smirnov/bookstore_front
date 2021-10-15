@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BookType, GetBookOptions, getBooks } from '../../api/bookApi';
+import { BookType, getMyBooks } from '../../api/bookApi';
 import { DEFAULT_COVER, IMAGES_URL } from '../../constants/constants';
 import { Icon } from 'react-icons-kit';
-import { ic_keyboard_arrow_left, ic_keyboard_arrow_right } from 'react-icons-kit/md/ic_keyboard_arrow_left';
+import { ic_keyboard_arrow_left} from 'react-icons-kit/md/ic_keyboard_arrow_left';
 
 type Props = {
 
@@ -11,12 +11,13 @@ type Props = {
 
 export const BookList: React.FC<Props> = (props) => {
   const [books, setBooks] = useState<BookType[]>([]);
+  
 
   useEffect(() => {
-    const options: GetBookOptions = { getMyBooks: true };
+      
     const getBooksData = async () => {
       try {
-        const result = await getBooks(options);
+        const result = await getMyBooks();
         setBooks(result.books)
       } catch (error) {
         console.log(error);
