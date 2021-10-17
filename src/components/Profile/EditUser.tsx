@@ -174,6 +174,7 @@ const StyledDiv = styled.div`
       height: 220px;
       width: 220px;
       margin-bottom: 20px;
+      object-fit: cover;
     }
     &__button {
       position: absolute;

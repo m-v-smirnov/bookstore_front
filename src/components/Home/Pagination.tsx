@@ -14,7 +14,7 @@ export const Pagination: React.FC<Props> = (props) => {
   let numbersArray: (number | null)[]=[];
 
   if(props.totalPages < 7) {
-    for (let index = 0; index <= props.totalPages; index++) {
+    for (let index = 1; index <= props.totalPages; index++) {
       numbersArray.push(index);
       
     }
@@ -56,6 +56,7 @@ export const Pagination: React.FC<Props> = (props) => {
   return (
     <StyledDiv>
       <button
+        hidden={!props.hasPrevPage}
         className="page__prev"
         onClick={() => {
           props.hasPrevPage
@@ -68,6 +69,7 @@ export const Pagination: React.FC<Props> = (props) => {
       {numbersArray.map((item) => {
         return (
           <button
+          key={`pag_key_${item}`}
             onClick={() => {
               if (item) {
                 props.setPage(item);
@@ -83,6 +85,7 @@ export const Pagination: React.FC<Props> = (props) => {
         )
       })}
       <button
+        hidden={!props.hasNextPage}
         className="page__next"
         onClick={() => {
           props.hasNextPage

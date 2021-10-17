@@ -234,6 +234,7 @@ const StyledDiv = styled.div`
       height: 300px;
       width: 220px;
       margin-bottom: 20px;
+      object-fit: contain;
     }
     &__button {
       margin-top: 10px;

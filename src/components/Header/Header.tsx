@@ -67,6 +67,7 @@ const StyledDiv = styled.div`
       border-radius: 100%;
       height: 50px;
       width: 50px;
+      object-fit: cover;
       
     }
     &__div {

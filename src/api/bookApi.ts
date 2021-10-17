@@ -33,6 +33,7 @@ export type CoverType = {
 
 export type GetBookOptions = {
   page: number,
+  genreId: string,
 };
 
 export type PaginationType = {
@@ -101,6 +102,7 @@ export const getBooks = async (options: GetBookOptions): Promise<BookResponseTyp
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     params: {
       page : options.page,
+      genreId: options.genreId
       
     }
   } )

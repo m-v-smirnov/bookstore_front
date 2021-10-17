@@ -4,9 +4,11 @@ import { userReducer } from './users/userReducer';
 //import { createDevTools } from '@redux-devtools/core';
 //import LogMonitor from '@redux-devtools/log-monitor';
 import thunk from 'redux-thunk';
+import { bookSortReducer } from './booksSorting/bookSortReducer';
 
 export const allReducers = combineReducers({
   user: userReducer,
+  sorting: bookSortReducer,
 });
 
 const composeEnhancers =

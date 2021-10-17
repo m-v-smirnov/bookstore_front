@@ -77,21 +77,26 @@ export const BookList: React.FC<Props> = (props) => {
 
 const StyledDiv = styled.div`
   margin: 60px auto;
+  width: 800px;
   font-size: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   .book-list {
     background-color: white;
     margin: 0 auto;
-    width: 800px;
+    width: auto;
     border-radius: 10px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     &__text {
       font-size: 24px;
       font-weight: 500;
     }
     //flex-direction: column;
     &__img {
-      margin: 10px auto;
+      margin: 10px;
       height: 150px;
       width: 100px;
       object-fit: contain;

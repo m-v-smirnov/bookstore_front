@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { BookType, GetBookOptions, getBooks } from "../../api/bookApi";
+import { useAppSelector } from "../../hooks";
 import { BookMini } from "./BookMini";
 import { Pagination } from "./Pagination";
 
@@ -16,10 +17,14 @@ export const BooksArea: React.FC<Props> = (props) => {
   const [totalPages, setTotalPages] = useState<number>(0);
   const [hasPrevPage, setHasPrevPage] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(false);
-
+  
+  const { genreId } = useAppSelector((state) => state.sorting);
+  console.log(`>>> genreId : ${genreId}`);
+  
   useEffect(() => {
     const options: GetBookOptions = {
-      page : pageState
+      page : pageState,
+      genreId: genreId
     };
     const getBooksData = async () => {
       if (pageState === prevPageState) return;
@@ -36,7 +41,7 @@ export const BooksArea: React.FC<Props> = (props) => {
       }
     }
     getBooksData();
-  }, [pageState])
+  }, [pageState,genreId])
 
   return (
     <StyledDiv>
@@ -65,7 +70,7 @@ const StyledDiv = styled.div`
       width: 720px;
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: flex-start;
     }
 
 `;

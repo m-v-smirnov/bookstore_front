@@ -47,7 +47,7 @@ const StyledDiv = styled.div`
     padding: 10px;
     background-color: #d3d3d387;
     border-radius: 5px;
-    margin: 20px auto;
+    margin: 20px 10px;
     height: 450px;
     width: 200px;
     display: flex;
