@@ -101,6 +101,7 @@ export const Pagination: React.FC<Props> = (props) => {
 
 const StyledDiv = styled.div`
   margin: 20px auto;
+  height: 28px;
   display: flex;
   justify-content: center;
   .page {

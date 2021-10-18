@@ -5,7 +5,7 @@ import styled from "styled-components";
 export const StyledInput = styled.input`
   height: 30px;
   width: auto;
-  padding: 5px 15px;
+  padding: 2px 10px;
   border-radius: 5px;
   border: 2px solid #5d97ff;
   outline: none;
@@ -16,14 +16,14 @@ export const StyledInput = styled.input`
 `;
 
 export const StyledButton = styled.button`
-  padding: 5px auto;
+  padding: 2px auto;
   height: 30px;
   width: 100%;
   border: none;
   border-radius: 5px;
   background-color: #0059ff;
   color: white;
-  font-size: 22px;
+  font-size: 16px;
   font-weight: 400;
   cursor: pointer;
   &:hover {
@@ -34,7 +34,7 @@ export const StyledButton = styled.button`
 export const StyledSelect = styled.select`
   height: 42px;
   width: auto;
-  padding: 5px 15px;
+  padding: 2px 10px;
   border-radius: 5px;
   border: 2px solid #5d97ff;
   outline: none;

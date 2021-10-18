@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { useAppSelector } from "../../hooks";
 import { BooksArea } from "./BooksArea";
-import { SortingColumns } from "./SortingColumn";
+import { SortingColumns } from "./FiltersColumn";
 
 type Props = {
 };
@@ -11,7 +12,7 @@ export const Home: React.FC<Props> = (props) => {
     <StyledDiv>
       <div className="home-container">
         <SortingColumns />
-        <BooksArea />
+        <BooksArea/>
       </div>
     </StyledDiv>
   );

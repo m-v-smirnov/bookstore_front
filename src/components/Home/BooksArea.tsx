@@ -4,9 +4,10 @@ import { BookType, GetBookOptions, getBooks } from "../../api/bookApi";
 import { useAppSelector } from "../../hooks";
 import { BookMini } from "./BookMini";
 import { Pagination } from "./Pagination";
+import { SortingSelect } from "./SortingSelect";
+import { useHistory } from "react-router-dom";
 
 type Props = {
-
 };
 
 export const BooksArea: React.FC<Props> = (props) => {
@@ -15,17 +16,31 @@ export const BooksArea: React.FC<Props> = (props) => {
   const [pageState, setPageState] = useState<number>(1);
   const [prevPageState, setPrevPageState] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
+  const [totalDocs, setTotalDocs] = useState<number>(0);
   const [hasPrevPage, setHasPrevPage] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(false);
-  
-  const { genreId } = useAppSelector((state) => state.sorting);
-  console.log(`>>> genreId : ${genreId}`);
-  
+  const [changeStatus, setChangeStatus] = useState(false);
+  let history = useHistory();
+
+  const { genreId, priceMax, priceMin, sortingString } = useAppSelector((state) => state.sorting);
+
+  //console.log(`>>> genreId : ${props.genreId}`);
+
+  useEffect(() => {
+    setPageState(1);
+    setChangeStatus(!changeStatus);
+  }, [genreId, priceMax, priceMin, sortingString]);
+
   useEffect(() => {
     const options: GetBookOptions = {
-      page : pageState,
-      genreId: genreId
+      page: pageState,
+      genreId,
+      priceMax,
+      priceMin,
+      sortingString
     };
+    const paramsString = `Home?page=${options.page}genreId=${options.genreId}priceMax=${priceMax}priceMin=${priceMin}`;
+    history.push(paramsString);
     const getBooksData = async () => {
       if (pageState === prevPageState) return;
       try {
@@ -36,22 +51,30 @@ export const BooksArea: React.FC<Props> = (props) => {
         setTotalPages(result.pagination.totalPages);
         setHasNextPage(result.pagination.hasNextPage);
         setHasPrevPage(result.pagination.hasPrevPage);
+        setTotalDocs(result.pagination.totalDocs);
+
       } catch (error) {
         console.log(error);
       }
     }
     getBooksData();
-  }, [pageState,genreId])
+  }, [pageState, changeStatus])
 
   return (
     <StyledDiv>
-      <Pagination 
-      totalPages={totalPages}
-      page={pageState}
-      setPage={setPageState}
-      hasNextPage={hasNextPage}
-      hasPrevPage={hasPrevPage}
+      <Pagination
+        totalPages={totalPages}
+        page={pageState}
+        setPage={setPageState}
+        hasNextPage={hasNextPage}
+        hasPrevPage={hasPrevPage}
       />
+      <div 
+      className="sorting-line"
+      >
+        <div>{totalDocs} {(totalDocs > 1) ? "books" : "book"}</div>
+        <SortingSelect />
+      </div>
       <div className="books-container" >
         {books.map((item) => {
           return <BookMini
@@ -71,6 +94,11 @@ const StyledDiv = styled.div`
       display: flex;
       flex-wrap: wrap;
       justify-content: flex-start;
+    }
+    .sorting-line {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
 `;

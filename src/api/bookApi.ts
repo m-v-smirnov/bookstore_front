@@ -34,6 +34,9 @@ export type CoverType = {
 export type GetBookOptions = {
   page: number,
   genreId: string,
+  priceMax: number,
+  priceMin: number,
+  sortingString: string
 };
 
 export type PaginationType = {
@@ -102,7 +105,10 @@ export const getBooks = async (options: GetBookOptions): Promise<BookResponseTyp
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     params: {
       page : options.page,
-      genreId: options.genreId
+      genreId: options.genreId,
+      priceMax: options.priceMax,
+      priceMin: options.priceMin,
+      sortingString: options.sortingString
       
     }
   } )
