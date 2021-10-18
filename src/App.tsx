@@ -7,8 +7,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
-  useParams,
+  Redirect
 } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { PrivateRoute } from './components/PrivateRoutes';
@@ -19,25 +18,16 @@ import { loginByTokenThunk } from './store/users/userActions';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-// type ParamsType = {
-//   page?: string,
-//   genreId?: string,
-//   priceMax?: string,
-//   priceMin?: string 
-// };
 
 export default function App() {
+  
+  
   const dispatch: any = useAppDispatch();
   const { user, error } = useAppSelector((state) => state.user);
   const [isLoaded, setLoaded] = useState(false);
   const token = localStorage.getItem('token');
   
-  
-  //const { page, genreId, priceMax, priceMin }  = useParams<any>(); 
 
-  // useEffect(() => {
-  //   console.log(`>>>> : ${page}`);
-  // },[]);
 
   useEffect(() => {
     (async function () {

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { BookType, GetBookOptions, getBooks } from "../../api/bookApi";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { BookMini } from "./BookMini";
 import { Pagination } from "./Pagination";
 import { SortingSelect } from "./SortingSelect";
 import { useHistory } from "react-router-dom";
+import { setGenreFilter, setPriceFilter } from "../../store/booksSorting/bookSortingActions"
 
 type Props = {
 };
@@ -20,11 +21,27 @@ export const BooksArea: React.FC<Props> = (props) => {
   const [hasPrevPage, setHasPrevPage] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [changeStatus, setChangeStatus] = useState(false);
+
   let history = useHistory();
 
+  const dispatch = useAppDispatch();
   const { genreId, priceMax, priceMin, sortingString } = useAppSelector((state) => state.sorting);
 
-  //console.log(`>>> genreId : ${props.genreId}`);
+
+  useEffect(() => {
+    
+  const urlParams = new URLSearchParams(window.location.search);
+  const page = Number(urlParams.get('page'));
+  const genreId = urlParams.get('genreId');
+  const priceMax = Number(urlParams.get('priceMax'));
+  const priceMin = Number(urlParams.get('priceMin'));
+  setPageState(page);
+  dispatch(setPriceFilter({priceMax, priceMin}));
+  dispatch(setGenreFilter(genreId as string));
+  
+
+    
+  },[]);
 
   useEffect(() => {
     setPageState(1);
@@ -39,7 +56,7 @@ export const BooksArea: React.FC<Props> = (props) => {
       priceMin,
       sortingString
     };
-    const paramsString = `Home?page=${options.page}genreId=${options.genreId}priceMax=${priceMax}priceMin=${priceMin}`;
+    const paramsString = `Home?page=${options.page}&genreId=${options.genreId}&priceMax=${priceMax}&priceMin=${priceMin}`;
     history.push(paramsString);
     const getBooksData = async () => {
       if (pageState === prevPageState) return;

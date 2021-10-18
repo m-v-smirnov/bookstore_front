@@ -1,5 +1,6 @@
 import { BookSortActions, PriceRange } from "./bookSortingTypes";
 
+
 export const setGenreFilter = (genreId: string): BookSortActions => {
   return {
     type: 'SET_GENRE_FILTER',
