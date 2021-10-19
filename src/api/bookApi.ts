@@ -55,6 +55,9 @@ export type BookResponseType = {
   books: BookType[],
   pagination: PaginationType
 };
+export type OneBookResponseType = {
+  book : BookType,
+};
 
 export type GenreType = {
   "_id": string,
@@ -115,7 +118,21 @@ export const getBooks = async (options: GetBookOptions): Promise<BookResponseTyp
   return response.data;
 };
 
+export const getBookById = async (option:{bookId: string}): Promise<OneBookResponseType> => {
+  const response = await instance.get("books/book",{
+    params: {
+      bookId: option.bookId
+    }
+  })
+  return response.data;
+};
+
 export const getMyBooks = async (): Promise<BookResponseType> => {
   const response = await instance.get("/books/my-books")
+  return response.data;
+};
+
+export const addToFavorites = async (option:{bookId: string}) => {
+  const response = await instance.post("/books/add-to-favorites", option)
   return response.data;
 };

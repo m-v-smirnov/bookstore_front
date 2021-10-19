@@ -17,7 +17,11 @@ import { loginByTokenThunk } from './store/users/userActions';
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { BookCard } from './components/BookCard/BookCard';
 
+const ToBookCard = (props:any) => {
+  return <BookCard bookId={props.match.params.id} />
+};
 
 export default function App() {
   
@@ -27,8 +31,8 @@ export default function App() {
   const [isLoaded, setLoaded] = useState(false);
   const token = localStorage.getItem('token');
   
-
-
+  
+  
   useEffect(() => {
     (async function () {
       if (token) {
@@ -39,12 +43,14 @@ export default function App() {
       }
     })();
   }, [isLoaded]);
-
+  
   useEffect(() => {
     if (error) {
       toast.error(error);
     }
   }, [error]);
+  
+  
 
   return (
     <Router>
@@ -58,6 +64,7 @@ export default function App() {
             <Route path="/login">
               {user ? <Redirect to="/" /> : <Login />}
             </Route>
+            <Route path="/book/:id" component={ToBookCard} />
             <Route path="/" component={Home} />
           </Switch>
           : <UserLoadingPage />
