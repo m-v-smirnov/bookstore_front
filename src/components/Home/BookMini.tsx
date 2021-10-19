@@ -89,27 +89,29 @@ const StyledDiv = styled.div`
     background-color: #d3d3d387;
     border-radius: 5px;
     margin: 20px 10px;
-    height: 450px;
+    //height: 450px;
     width: 200px;
     position: relative;
       &__favorites{
         padding: 0;
         position: absolute;
         top: 20px;
-        right: 20px;
+        right: 10px;
         width: 35px;
         height: 35px;
-        background-color: transparent;
+        background-color: lightgray;
+        opacity: 50%;
         border: 0;
         border-radius: 100%;
         cursor: pointer;
         &:hover {
           color: #b80000;
+          opacity: 100%;
         }
       }
       &__description {
         margin-top: 10px;
-        height: 190px;
+        height: 170px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
