@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import styled from "styled-components";
 import { BookType, getBookById } from "../../api/bookApi";
 import { IMAGES_URL } from "../../constants/constants";
 import { StyledButton } from "../StyledComponents";
+import { BookDescription } from "./BookDescription";
+import { BookRating } from "./BookRating";
+import { BookSpecification } from "./BookSpecification";
+import { BooksReviews } from "./BooksReviews";
 import { RatingStars } from "./RatingStars";
 
 type Props = {
@@ -14,6 +19,8 @@ type Props = {
 export const BookCard: React.FC<Props> = (props) => {
 
   const [book, setBook] = useState<BookType>();
+  const [tabSelect, setTabSelect] = useState(1);
+  const tabsList = ["Description", "Specifications", "Reviews"];
   const cover = IMAGES_URL
     + (book?.coverRefId ? book.coverRefId.fileRef
       : "defaultcover.png");
@@ -24,8 +31,8 @@ export const BookCard: React.FC<Props> = (props) => {
         const result = await getBookById({ bookId: props.bookId });
         setBook(result.book);
       }
-      catch (error) {
-        console.log(error);
+      catch (error: any) {
+        toast.error(String(error.response.data.message));
 
       }
     }
@@ -42,18 +49,44 @@ export const BookCard: React.FC<Props> = (props) => {
           <img className="book-card__img" src={cover} alt="" />
           <div className="book-card__data">
             <div className="book-card__ratings">
-              Ratings
-              <RatingStars />
+              <BookRating bookId={props.bookId} />
+              <RatingStars bookId={props.bookId} />
             </div>
             <div className="book-card__div">
-              <div className="book-card__price">{book?.price} rub</div>
+              <div className="book-card__price">{book?.price} ₽</div>
               {book?.sale
                 ? <div className="book-card__sale">SALE</div>
                 : <div></div>}
             </div>
-            <StyledButton>Add</StyledButton>
+            <StyledButton>
+              Add
+            </StyledButton>
           </div>
+
         </div>
+      </div>
+      <div className="texts">
+        <div>
+          <ul className="tabs">
+            {tabsList.map((item, index) => {
+              return (
+                <li key={`tabs_${index}`}>
+                  <button 
+                  className={
+                    (tabSelect === (index+1)
+                    ? "texts__button--selected" : "texts__button")}
+                  onClick={() => {setTabSelect(index+1)}} 
+                  >{item}</button>
+                </li>
+              )
+            })}
+          </ul>
+        </div>
+        {(tabSelect === 1)
+        ? <BookDescription description={book? book.description :""} />
+        : (tabSelect === 2) ? <BookSpecification />
+        : <BooksReviews />
+      }
       </div>
     </StyledDiv>
   )
@@ -63,27 +96,30 @@ const StyledDiv = styled.div`
   .book-card {
     width: 800px;
     margin: 20px auto;
+    padding-bottom: 20px;
+    border-bottom: 2px solid lightgrey;
     
     &__author {
       padding: 0;
       margin: 0;
       color: grey;
-      font-size: 16px;
+      font-size: 18px;
     }
     &__title {
       margin: 10px 0;
-      font-size: 18px;
+      font-size: 24px;
     }
     &__container {
       display: flex;
       justify-content: space-between;
     }
     &__img {
-      height: 460px;
-      width: 300px;
+      height: 400px;
+      width: 260px;
       object-fit: contain;
     }
     &__data {
+      margin-top: 30px;
       width: 300px;
       display: flex;
       flex-direction: column;
@@ -96,7 +132,7 @@ const StyledDiv = styled.div`
       //justify-content: space-around;
     }
     &__price {
-      font-size: 18px;
+      font-size: 24px;
       font-weight: 500;
     }
       
@@ -113,9 +149,39 @@ const StyledDiv = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-
+    }
+    
+  }
+  .texts {
+    width: 800px;
+    margin: 40px auto;
+    &__button {
+      border: 0;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 600;
+      &--selected {
+        border: 0;
+        font-size: 18px;
+        font-weight: 600;
+        border-bottom: 2px solid grey;
+      }
+      &:hover {
+        border-bottom: 2px solid grey;
+      }
     }
   }
+  ul.tabs {
+    margin: 20px 0;
+    padding: 0;
+    height: 15px;
+  }
+  ul.tabs li {
+    display: inline;
+    margin-right: 5px;
+    padding: 5px;
+  }
+  
   
 
 `;

@@ -79,6 +79,14 @@ export type AuthorsResponseType = {
   authors: AuthorType[]
 };
 
+export type BookRatingType = {
+  rating: number,
+  bookId: string
+}
+
+export type BookRatingResponseType = {
+  rating: number
+}
 
 export const addBook = async (options: BookAddOptions)
   : Promise<BookResponseType> => {
@@ -134,5 +142,20 @@ export const getMyBooks = async (): Promise<BookResponseType> => {
 
 export const addToFavorites = async (option:{bookId: string}) => {
   const response = await instance.post("/books/add-to-favorites", option)
+  return response.data;
+};
+
+export const addBookRating = async (options: BookRatingType) => {
+  const response = await instance.post("/books/rate-the-book", options)
+  return response.data;
+};
+
+export const getBookRating = async (option:{bookId: string}): Promise<BookRatingResponseType> => {
+  
+  const response = await instance.get("/books/get-rating",{
+    params: {
+      bookId: option.bookId,
+    }
+  })
   return response.data;
 };

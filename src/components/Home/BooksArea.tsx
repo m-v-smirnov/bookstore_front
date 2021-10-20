@@ -64,7 +64,8 @@ export const BooksArea: React.FC<Props> = (props) => {
       priceMin,
       sortingString
     };
-    const paramsString = `home?page=${options.page}&genreId=${options.genreId}&priceMax=${priceMax}&priceMin=${priceMin}`;
+    const paramsString = `home?page=${options.page}` + 
+    `&genreId=${options.genreId}&priceMax=${priceMax}&priceMin=${priceMin}`;
     history.push(paramsString);
     const getBooksData = async () => {
       if (pageState === prevPageState) return;

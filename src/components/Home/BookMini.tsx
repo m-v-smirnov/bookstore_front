@@ -40,7 +40,7 @@ export const BookMini: React.FC<Props> = (props) => {
  
   return (
     <StyledDiv>
-      {redirectToLogin ? <Redirect to="login" />
+      {redirectToLogin ? <Redirect to="/login" />
         :
         <div className="book-mini">
           <button
@@ -66,7 +66,7 @@ export const BookMini: React.FC<Props> = (props) => {
               <p className="book-mini__title">{props.book.title}</p>
             </div>
             <div className="book-mini__div">
-              <p className="book-mini__price">{props.book.price} rub </p>
+              <p className="book-mini__price">{props.book.price} ₽ </p>
               {props.book.sale
                 ? <p className="book-mini__sale">SALE</p>
                 : <p></p>
