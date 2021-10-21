@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Icon } from 'react-icons-kit'
 import { ic_star_rate_outline } from 'react-icons-kit/md/ic_star_rate_outline'
 import { useState } from "react";
-import { addBookRating, BookRatingType } from "../../api/bookApi";
+import { addBookRating } from "../../api/bookApi";
 import { useAppSelector } from "../../hooks";
 import { Redirect } from "react-router";
 import { toast } from "react-toastify";
@@ -18,7 +18,7 @@ const onStarsClick = async (item: number, bookId: string) => {
       rating: item,
       bookId: bookId
     };
-    const result = await addBookRating(options);
+    await addBookRating(options);
   } catch (error: any) {
     toast.error(String(error.response.data.message));
     

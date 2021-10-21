@@ -85,7 +85,7 @@ export const BookCard: React.FC<Props> = (props) => {
         {(tabSelect === 1)
         ? <BookDescription description={book? book.description :""} />
         : (tabSelect === 2) ? <BookSpecification />
-        : <BooksReviews />
+        : <BooksReviews bookId={props.bookId} />
       }
       </div>
     </StyledDiv>
@@ -94,7 +94,7 @@ export const BookCard: React.FC<Props> = (props) => {
 
 const StyledDiv = styled.div`
   .book-card {
-    width: 800px;
+    width: 700px;
     margin: 20px auto;
     padding-bottom: 20px;
     border-bottom: 2px solid lightgrey;
@@ -172,7 +172,8 @@ const StyledDiv = styled.div`
     }
   }
   ul.tabs {
-    margin: 20px 0;
+    margin-top: 20px;
+    margin-bottom: 40px;
     padding: 0;
     height: 15px;
   }

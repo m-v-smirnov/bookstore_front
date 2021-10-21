@@ -88,6 +88,26 @@ export type BookRatingResponseType = {
   rating: number
 }
 
+
+
+export type UserIdType = {
+  _id:string,
+  fullName: string,
+  avatarRefId: CoverType,
+}
+
+export type ReviewType = {
+  _id : string,
+  review: string,
+  bookId: string,
+  userId: UserIdType,
+  createdAt: Date
+}
+
+export type ReviewsResponseType = {
+  reviews: ReviewType[]
+}
+
 export const addBook = async (options: BookAddOptions)
   : Promise<BookResponseType> => {
   const response = await instance.post("/books", options);
@@ -96,7 +116,6 @@ export const addBook = async (options: BookAddOptions)
 
 export const uploadFile = async (options: any): Promise<String> => {
   const response = await instance.post("books/cover", options, {
-    //headers: { "Content-Type": "application/x-www-form-urlencoded" },
   });
   return response.data.fileName;
 };
@@ -153,6 +172,19 @@ export const addBookRating = async (options: BookRatingType) => {
 export const getBookRating = async (option:{bookId: string}): Promise<BookRatingResponseType> => {
   
   const response = await instance.get("/books/get-rating",{
+    params: {
+      bookId: option.bookId,
+    }
+  })
+  return response.data;
+};
+
+export const addBookReview = async (options:{bookId: string,review:string}) => {
+  await instance.post("/books/reviews",options);
+}
+
+export const getBookReviews = async (option:{bookId: string}): Promise<ReviewsResponseType> => {
+  const response = await instance.get("/books/reviews",{
     params: {
       bookId: option.bookId,
     }

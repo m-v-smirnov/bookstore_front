@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useAppSelector } from "../../hooks";
 import { BooksArea } from "./BooksArea";
 import { SortingColumns } from "./FiltersColumn";
 

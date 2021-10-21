@@ -14,7 +14,6 @@ type Props = {
 };
 
 export const Header: React.FC<Props> = (props) => {
-  //const dispatch: any = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
   const avatar = IMAGES_URL + (user ? user.avatarRef : DEFAULT_AVATAR);
 

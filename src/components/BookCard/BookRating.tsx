@@ -1,7 +1,7 @@
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { BookRatingResponseType, getBookRating } from "../../api/bookApi";
+import {  getBookRating } from "../../api/bookApi";
 
 type Props = {
   bookId: string

@@ -8,9 +8,8 @@ import { IMAGES_URL } from "../../constants/constants";
 import { StyledButton } from "../StyledComponents";
 import { useAppSelector } from "../../hooks";
 import { useState } from "react";
-import { Redirect, Route, Router } from "react-router";
+import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
-import { BookCard } from "../BookCard/BookCard";
 
 type Props = {
   book: BookType

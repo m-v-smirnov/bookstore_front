@@ -1,13 +1,16 @@
 import styled from "styled-components";
+import { Reviews } from "./Reviews";
+import { WriteReview } from "./WriteReview";
 
 type Props = {
-
+  bookId: string
 };
 
 export const BooksReviews: React.FC<Props> = (props) => {
   return (
     <StyledDiv>
-      Review wil be here soon...
+      <Reviews bookId={props.bookId}/>
+      <WriteReview  bookId={props.bookId}/>
     </StyledDiv>
   )
 };
