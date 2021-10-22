@@ -13,7 +13,6 @@ type ReviewAddType = {
 }
 
 export const WriteReview: React.FC<Props> = (props) => {
-
   const { register, handleSubmit,
     // formState: { errors }
   } = useForm<ReviewAddType>();
@@ -65,7 +64,6 @@ const StyledDiv = styled.div`
   .review-form {
     display: flex;
     flex-direction: column;
-    //align-items: center;
     &__label {
       margin: 10px 0;
     }

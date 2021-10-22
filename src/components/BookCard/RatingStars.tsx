@@ -10,8 +10,8 @@ import { toast } from "react-toastify";
 type Props = {
   bookId: string
 };
-const rates = [1, 2, 3, 4, 5];
 
+const rates = [1, 2, 3, 4, 5];
 const onStarsClick = async (item: number, bookId: string) => {
   try {
     const options = {
@@ -21,7 +21,6 @@ const onStarsClick = async (item: number, bookId: string) => {
     await addBookRating(options);
   } catch (error: any) {
     toast.error(String(error.response.data.message));
-    
   }
 }
 
@@ -30,9 +29,7 @@ export const RatingStars: React.FC<Props> = (props) => {
   const [redirectToLogin, setRedirectToLogin] = useState(false);
   const { user } = useAppSelector((state) => state.user);
 
-
   return (
-
     <StyleDiv>{redirectToLogin
       ? <Redirect to="/login" />
       : <div>{
@@ -76,7 +73,6 @@ const StyleDiv = styled.div`
       width: 25px;
       color: lightgrey;
       cursor: pointer;
-      
     }
     &__star--blue {
       padding: 0%;;
@@ -86,7 +82,6 @@ const StyleDiv = styled.div`
       width: 25px;
       color: #0059ff;
       cursor: pointer;
-      
     }
   }
 `; 

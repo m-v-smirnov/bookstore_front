@@ -1,8 +1,6 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import { userReducer } from './users/userReducer';
 
-//import { createDevTools } from '@redux-devtools/core';
-//import LogMonitor from '@redux-devtools/log-monitor';
 import thunk from 'redux-thunk';
 import { bookSortReducer } from './booksSorting/bookSortReducer';
 
@@ -17,7 +15,6 @@ const composeEnhancers =
       // Specify extension’s options like name, actionsDenylist, actionsCreators, serialize...
     })
     : compose;
-
 const enhancer = composeEnhancers(
   applyMiddleware(thunk)
   // other store enhancers if any

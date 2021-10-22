@@ -1,27 +1,22 @@
 import { BookSortActions } from "./bookSortingTypes";
 
-export type BookSortState = {
+type BookSortState = {
   genreId: string,
   priceMin: number,
   priceMax: number,
   sortingString: string
 };
-
-
-
 const initialState: BookSortState = {
   genreId: '',
-  priceMax : 99999999,
+  priceMax : Infinity,
   priceMin: 0,
   sortingString: "default"
-
 };
 
 export const bookSortReducer = (
   state = initialState,
   actions: BookSortActions
 ): BookSortState => {
-
   switch (actions.type) {
     case 'SET_GENRE_FILTER':
       return {
@@ -42,5 +37,4 @@ export const bookSortReducer = (
     default:
       return state
   }
-
 };

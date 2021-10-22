@@ -3,8 +3,7 @@ import styled from 'styled-components';
 import {LoginPage} from './LoginPage';
 import {RegisterPage} from './RegisterPage';
 
-type Props = {
-};
+type Props = {};
 
 export const Login: React.FC<Props> = (props) => {
   const [registerPage, setRegisterPage] = useState(false);
@@ -19,8 +18,6 @@ export const Login: React.FC<Props> = (props) => {
   );
 }
 
-
-
 const StyledDiv = styled.div`
   .container {
     background-color: white;
@@ -32,7 +29,6 @@ const StyledDiv = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-
       &__form {
         display: flex;
         flex-direction: column;

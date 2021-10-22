@@ -3,8 +3,7 @@ import { setClearUser } from "../../store/users/userActions";
 import { Icon } from 'react-icons-kit';
 import { ic_logout } from 'react-icons-kit/md/ic_logout';
 
-type Props = {
-};
+type Props = {};
 
 export const LogoutButton: React.FC<Props> = (props) => {
   const dispatch: any = useAppDispatch();

@@ -1,15 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { StyledButton } from '../StyledComponents';
-
-
 import { AddBook } from './AddBook';
 import { BookList } from './BookList';
 import { EditUser } from './EditUser';
 
-
-type Props = {
-};
+type Props = {};
 
 export const Profile: React.FC<Props> = (props) => {
   const [editUser, setEditUser] = useState(false);

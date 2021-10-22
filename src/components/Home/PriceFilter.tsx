@@ -5,19 +5,13 @@ import { useAppDispatch } from "../../hooks";
 import { setPriceFilter } from "../../store/booksSorting/bookSortingActions";
 import { StyledButton, StyledInput } from "../StyledComponents";
 
-type Props = {
-
-}
-
-
+type Props = {};
 
 export const PriceFilter: React.FC<Props> = (props) => {
-
   const dispatch = useAppDispatch();
   const { register, handleSubmit, setValue,
     formState: { errors }
   } = useForm<PriceRange>();
-
   const onSubmit: SubmitHandler<PriceRange> = async (data) => {
     dispatch(setPriceFilter(data));
   };
@@ -65,7 +59,6 @@ const StyledDiv = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
     &__button {
       width: 120px;
       height: 25px;

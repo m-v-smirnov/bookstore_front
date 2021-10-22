@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { BookType, getBookById } from "../../api/bookApi";
+import { getBookById } from "../../api/bookApi";
 import { IMAGES_URL } from "../../constants/constants";
+import { BookType } from "../../types/bookTypes";
 import { StyledButton } from "../StyledComponents";
 import { BookDescription } from "./BookDescription";
 import { BookRating } from "./BookRating";
@@ -14,10 +15,7 @@ type Props = {
   bookId: string,
 };
 
-
-
 export const BookCard: React.FC<Props> = (props) => {
-
   const [book, setBook] = useState<BookType>();
   const [tabSelect, setTabSelect] = useState(1);
   const tabsList = ["Description", "Specifications", "Reviews"];
@@ -33,11 +31,9 @@ export const BookCard: React.FC<Props> = (props) => {
       }
       catch (error: any) {
         toast.error(String(error.response.data.message));
-
       }
     }
     getBookData();
-
   }, []);
 
   return (
@@ -98,7 +94,6 @@ const StyledDiv = styled.div`
     margin: 20px auto;
     padding-bottom: 20px;
     border-bottom: 2px solid lightgrey;
-    
     &__author {
       padding: 0;
       margin: 0;
@@ -129,13 +124,11 @@ const StyledDiv = styled.div`
       width: 100%;
       display: flex;
       align-items: center;
-      //justify-content: space-around;
     }
     &__price {
       font-size: 24px;
       font-weight: 500;
     }
-      
     &__sale {
        padding: 5px 10px;
        margin-left: 40px;
@@ -150,7 +143,6 @@ const StyledDiv = styled.div`
       justify-content: space-between;
       align-items: center;
     }
-    
   }
   .texts {
     width: 800px;
@@ -182,7 +174,4 @@ const StyledDiv = styled.div`
     margin-right: 5px;
     padding: 5px;
   }
-  
-  
-
 `;

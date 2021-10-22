@@ -1,4 +1,3 @@
-
 export type PriceRange = {
   priceMin: number,
   priceMax: number

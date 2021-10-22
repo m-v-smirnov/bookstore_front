@@ -7,8 +7,7 @@ type Props = {};
 
 export const SortingSelect: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch();
-  
-  const onChangeSelect:React.ChangeEventHandler<HTMLSelectElement> = (e) => {
+    const onChangeSelect:React.ChangeEventHandler<HTMLSelectElement> = (e) => {
     dispatch(setSorting(e.target.value));
   }
 
@@ -25,7 +24,6 @@ export const SortingSelect: React.FC<Props> = (props) => {
         <option value="expensiveFirst">Price: high to low</option>
         <option value="cheapFirst">Price: low to high</option>
       </ StyledSelect>
-
     </StyledDiv>    
   )
 };

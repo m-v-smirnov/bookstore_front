@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-type Props = {
-
-};
+type Props = {};
 
 export const BookSpecification: React.FC<Props> = (props) => {
   return (

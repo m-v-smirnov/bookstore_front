@@ -2,12 +2,9 @@ import styled from "styled-components";
 import { GenreFilter } from "./GenreFilter";
 import { PriceFilter } from "./PriceFilter";
 
-type Props = {
-
-};
+type Props = {};
 
 export const SortingColumns: React.FC<Props> = (props) => {
-
 
   return (
     <StyledDiv>
@@ -26,8 +23,5 @@ const StyledDiv = styled.div`
       width: 200px;
       display: flex;
       flex-direction: column;
-      
-      
     }
-
 `;

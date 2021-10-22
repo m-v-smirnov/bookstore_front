@@ -7,8 +7,6 @@ export const instance = axios.create({
   baseURL: API_URL,
 });
 
-
-
 instance.interceptors.request.use(function (config) {
   store.dispatch(setError(''));
   const token = localStorage.getItem('token');

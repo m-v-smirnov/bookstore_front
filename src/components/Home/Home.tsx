@@ -2,8 +2,7 @@ import styled from "styled-components";
 import { BooksArea } from "./BooksArea";
 import { SortingColumns } from "./FiltersColumn";
 
-type Props = {
-};
+type Props = {};
 
 export const Home: React.FC<Props> = (props) => {
 

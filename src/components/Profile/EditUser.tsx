@@ -1,49 +1,40 @@
-import styled from 'styled-components';
-import { uploadFile } from '../../api/bookApi';
-import { UserEditOptions } from '../../api/userApi';
 import React, {useEffect} from 'react';
 import { useForm, SubmitHandler} from "react-hook-form";
+import styled from 'styled-components';
+import {Icon} from 'react-icons-kit'
+import {upload} from 'react-icons-kit/icomoon/upload'
+import { toast } from 'react-toastify';
+import { uploadFile } from '../../api/bookApi';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { editUser, editUserThunk } from '../../store/users/userActions';
 import { DEFAULT_AVATAR, IMAGES_URL } from '../../constants/constants';
 import { StyledButton, StyledInput } from '../StyledComponents';
-import {Icon} from 'react-icons-kit'
-import {upload} from 'react-icons-kit/icomoon/upload'
+import { UserEditOptions } from '../../types/userTypes';
 
-
-
-type Props = {
-};
+type Props = {};
 
 export const EditUser: React.FC<Props> = (props) => {
   const dispatch: any = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
-
-  const { register, handleSubmit, setValue,
-    formState: { errors }
+  const { register, handleSubmit, setValue
+    //, formState: { errors }
   } = useForm<UserEditOptions>();
-
   const avatarRef = user ? user.avatarRef : DEFAULT_AVATAR;
   const fullName = user ? user.fullName : "USER BY DEFAULT";
   const dob = user ? user.dob : "1900-01-01";
   
   useEffect(() => {
-
     setValue('fullName', fullName);
     setValue('dob', dob.slice(0, 10))
-
-  }, []);
-
+  }, [fullName,dob]);
 
   const onSubmit: SubmitHandler<UserEditOptions> = async (data) => {
-
     const options: UserEditOptions = {
       dob: data.dob,
       fullName: data.fullName,
       password: data.password,
       avatarRef: avatarRef
     };
-
     try {
       dispatch(editUserThunk(options));
     } catch (e) {
@@ -57,21 +48,16 @@ export const EditUser: React.FC<Props> = (props) => {
       if (!e.target.files) { return };
       const formData = new FormData();
       formData.append('cover', e.target.files[0]);
-      console.log(formData.values);
-
       try {
         const response = await uploadFile(formData);
         dispatch(editUser({
           fullName,
           dob,
-          avatarRef: response.toString(),
+          avatarRef: response.fileName.toString(),
         }));
-        console.log(`File uploading response : ${response}`);
-
-      } catch (error) {
-        console.log(error)
+      } catch (error: any) {
+        toast.error(error.response.data.message);
       }
-
     };
 
   return (
@@ -86,7 +72,7 @@ export const EditUser: React.FC<Props> = (props) => {
             <img
               className='avatar__img'
               src={IMAGES_URL + avatarRef}
-              alt="avatar image here"
+              alt="avatar here"
             />
             <label 
             htmlFor="avatar" 
@@ -179,10 +165,8 @@ const StyledDiv = styled.div`
     &__button {
       position: absolute;
       top: 50px;
-
     }
   }
-
   input[type="file"] {
     display: none;
   }
@@ -214,6 +198,5 @@ const StyledDiv = styled.div`
     align-self: flex-end;
     width: 40%;
     }
-    
   }
   `;

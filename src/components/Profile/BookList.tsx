@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { BookType, getMyBooks } from '../../api/bookApi';
+import { getMyBooks } from '../../api/bookApi';
 import { DEFAULT_COVER, IMAGES_URL } from '../../constants/constants';
 import { Icon } from 'react-icons-kit';
 import { ic_keyboard_arrow_left} from 'react-icons-kit/md/ic_keyboard_arrow_left';
+import { BookType } from '../../types/bookTypes';
 
-type Props = {
-
-};
+type Props = {};
 
 export const BookList: React.FC<Props> = (props) => {
   const [books, setBooks] = useState<BookType[]>([]);
   
-
   useEffect(() => {
-      
     const getBooksData = async () => {
       try {
         const result = await getMyBooks();
@@ -94,13 +91,11 @@ const StyledDiv = styled.div`
       font-size: 24px;
       font-weight: 500;
     }
-    //flex-direction: column;
     &__img {
       margin: 10px;
       height: 150px;
       width: 100px;
       object-fit: contain;
-
     }
     &__button {
       background-color: white;
@@ -121,8 +116,5 @@ const StyledDiv = styled.div`
         color: #0059ff;
       }
     }
-    
-    
   }
- 
 `;

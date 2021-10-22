@@ -18,21 +18,18 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BookCard } from './components/BookCard/BookCard';
 
-const ToBookCard = (props:any) => {
+const ToBookCard = (props: any) => {
   return <BookCard bookId={props.match.params.id} />
 };
 
 export default function App() {
-  
-  
+
   const dispatch: any = useAppDispatch();
   const { user, error } = useAppSelector((state) => state.user);
   const [isLoaded, setLoaded] = useState(false);
-  const token = localStorage.getItem('token');
-  
-  
-  
+
   useEffect(() => {
+    const token = localStorage.getItem('token');
     (async function () {
       if (token) {
         await dispatch(loginByTokenThunk());
@@ -41,15 +38,13 @@ export default function App() {
         setLoaded(true);
       }
     })();
-  }, [isLoaded]);
-  
+  }, []);
+
   useEffect(() => {
     if (error) {
       toast.error(error);
     }
   }, [error]);
-  
-  
 
   return (
     <Router>

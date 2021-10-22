@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import { IMAGES_URL } from "../../constants/constants";
-import { getBookReviews, ReviewType } from "../../api/bookApi";
+import { getBookReviews } from "../../api/bookApi";
+import { ReviewType } from "../../types/bookTypes";
 
 type Props = {
   bookId: string
@@ -10,7 +11,6 @@ type Props = {
 
 export const Reviews: React.FC<Props> = (props) => {
   const [reviews, setReviews] = useState<ReviewType[]>([]);
-
 
   useEffect(() => {
     const getReviewsData = async () => {
@@ -33,8 +33,6 @@ export const Reviews: React.FC<Props> = (props) => {
           const avatar = IMAGES_URL
             + (item.userId.avatarRefId.fileRef ? item.userId.avatarRefId.fileRef
               : "defaultavatar.png");
-          console.log(`>>> avatarURL : ${avatar}`);
-
           return (
             <div key={item._id} className="review">
               <div className="review__user">

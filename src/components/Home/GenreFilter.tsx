@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { GenreType, getGenres } from "../../api/bookApi";
+import { getGenres } from "../../api/bookApi";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { setGenreFilter } from "../../store/booksSorting/bookSortingActions";
+import { GenreType } from "../../types/bookTypes";
 
-type Props = {
-
-}
+type Props = {}
 
 export const GenreFilter: React.FC<Props> = (props) => {
   const [genreState, setGenreState] = useState<GenreType[]>([]);
@@ -27,8 +26,6 @@ export const GenreFilter: React.FC<Props> = (props) => {
 
   return (
     <StyledDiv>
-
-
       <div>
         <p>Genres:</p>
         <ul
@@ -62,7 +59,6 @@ export const GenreFilter: React.FC<Props> = (props) => {
                     ? "sorting-genre__button"
                     : "sorting-genre__button--selected"
                   }
-                  
                 >
                   {item.name}
                 </button></li>
@@ -71,7 +67,6 @@ export const GenreFilter: React.FC<Props> = (props) => {
         </ul>
       </div>
       <div>
-
       </div>
     </StyledDiv>
   )

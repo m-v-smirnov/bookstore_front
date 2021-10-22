@@ -1,21 +1,20 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { BookType, GetBookOptions, getBooks } from "../../api/bookApi";
+import { useHistory } from "react-router-dom";
+import { getBooks } from "../../api/bookApi";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { BookMini } from "./BookMini";
 import { Pagination } from "./Pagination";
 import { SortingSelect } from "./SortingSelect";
-import { useHistory } from "react-router-dom";
+import { BookType, GetBookOptions } from "../../types/bookTypes";
 import {
   setGenreFilter,
   setPriceFilter
 } from "../../store/booksSorting/bookSortingActions";
 
-type Props = {
-};
+type Props = {};
 
 export const BooksArea: React.FC<Props> = (props) => {
-
   const [books, setBooks] = useState<BookType[]>([]);
   const [pageState, setPageState] = useState<number>(1);
   const [prevPageState, setPrevPageState] = useState<number>(0);
@@ -24,9 +23,7 @@ export const BooksArea: React.FC<Props> = (props) => {
   const [hasPrevPage, setHasPrevPage] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(false);
   const [changeStatus, setChangeStatus] = useState(false);
-
   let history = useHistory();
-
   const dispatch = useAppDispatch();
   const {
     genreId,
@@ -34,9 +31,7 @@ export const BooksArea: React.FC<Props> = (props) => {
     priceMin,
     sortingString } = useAppSelector((state) => state.sorting);
 
-
   useEffect(() => {
-
     const urlParams = new URLSearchParams(window.location.search);
     const page = Number(urlParams.get('page'));
     const genreId = urlParams.get('genreId');
@@ -49,7 +44,6 @@ export const BooksArea: React.FC<Props> = (props) => {
     dispatch(setGenreFilter(genreId as string));
 
   }, []);
-
 
   useEffect(() => {
     setPageState(1);
@@ -78,7 +72,6 @@ export const BooksArea: React.FC<Props> = (props) => {
         setHasNextPage(result.pagination.hasNextPage);
         setHasPrevPage(result.pagination.hasPrevPage);
         setTotalDocs(result.pagination.totalDocs);
-
       } catch (error) {
         console.log(error);
       }

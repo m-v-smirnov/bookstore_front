@@ -1,4 +1,4 @@
-import { UserEditOptions } from "../../api/userApi"
+import { UserEditOptions } from "../../types/userTypes"
 
 type SetUserAction = { type: 'SET_USER', payload: User }
 type SetStartLoadingAction = { type: 'SET_START_LOADING' }
@@ -6,8 +6,6 @@ type SetErrorAction = { type: 'SET_ERROR', payload: string }
 type SetFinishLoadingAction = { type: 'SET_FINISH_LOADING' }
 type SetClearUser = { type: 'SET_CLEAR_USER' }
 type SetEditUser = {type: 'EDIT_USER', payload: UserEditOptions}
-
-
 
 export type UserActions =
   | SetUserAction

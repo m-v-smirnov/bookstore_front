@@ -1,14 +1,11 @@
 import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
+import { StyledButton, StyledInput } from '../StyledComponents';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-
-import { UserLoginOptions } from '../../api/userApi';
 import { useAppDispatch } from '../../hooks';
 import { loginUserThunk } from '../../store/users/userActions';
-import { StyledButton, StyledInput } from '../StyledComponents';
-
-
+import { UserLoginOptions } from '../../types/userTypes';
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -30,8 +27,6 @@ export const LoginPage: React.FC<Props> = (props) => {
       email: data.email,
       password: data.password,
     };
-
-
     dispatch(loginUserThunk(options));
   };
   const activateRegisterPage =
@@ -59,9 +54,6 @@ export const LoginPage: React.FC<Props> = (props) => {
           {...register("email")}
         >
         </StyledInput>
-        {/* <p className='container__input--error'>
-          {errors.email?.message}
-        </p> */}
         <label
           className='container__label'
           htmlFor="GET-pass"
@@ -75,9 +67,6 @@ export const LoginPage: React.FC<Props> = (props) => {
           {...register("password")}
         >
         </StyledInput>
-        {/* <p className='container__input--error'>
-          {errors.password?.message}
-        </p> */}
         <StyledButton
           type="submit"
           className='container__button'
@@ -85,7 +74,6 @@ export const LoginPage: React.FC<Props> = (props) => {
         >
           Sign in
         </StyledButton>
-
       </form>
       <p className="container__text">Don't have an account?</p>
       <StyledButton

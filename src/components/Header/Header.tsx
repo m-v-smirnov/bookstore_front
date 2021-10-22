@@ -6,9 +6,6 @@ import { LoginButton } from "./LoginButton";
 import { LogoutButton } from "./LogoutButton";
 
 const logo = IMAGES_URL + "bookstore.png"
-
-
-
 type Props = {
 
 };
@@ -57,7 +54,6 @@ const StyledDiv = styled.div`
     width: 1100px;
     display: flex;
     justify-content: space-between;
-    
     &__img {
       width : 220px;
     }
@@ -66,8 +62,7 @@ const StyledDiv = styled.div`
       border-radius: 100%;
       height: 50px;
       width: 50px;
-      object-fit: cover;
-      
+      object-fit: cover; 
     }
     &__div {
       align-self: center;

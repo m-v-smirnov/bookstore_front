@@ -1,14 +1,16 @@
 import { AppDispatch } from "../index";
 import {
   userCreate,
-  UserCreateOptions,
   userEdit,
-  UserEditOptions,
   userLogin,
   userLoginByToken,
-  UserLoginOptions,
 } from "../../api/userApi";
 import { UserActions, User } from "./userTypes";
+import {
+  UserCreateOptions,
+  UserEditOptions,
+  UserLoginOptions
+} from "../../types/userTypes";
 
 export const setStartLoading = (): UserActions => {
   return {
@@ -48,10 +50,6 @@ export const editUser = (options: UserEditOptions): UserActions => {
     payload: options
   }
 }
-
-
-
-
 
 export const loginUserThunk =
   (options: UserLoginOptions) => async (dispatch: AppDispatch) => {
@@ -98,7 +96,7 @@ export const createUserThunk =
     }
   }
 
-  export const editUserThunk =
+export const editUserThunk =
   (options: UserEditOptions) => async (dispatch: AppDispatch) => {
     try {
       dispatch(setStartLoading())

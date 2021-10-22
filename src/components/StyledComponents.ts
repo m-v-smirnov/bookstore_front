@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-
-
 export const StyledInput = styled.input`
   height: 30px;
   width: auto;
@@ -12,7 +10,6 @@ export const StyledInput = styled.input`
   &:focus {
     border-color: #0059ff;
   }
-
 `;
 
 export const StyledButton = styled.button`
@@ -42,5 +39,4 @@ export const StyledSelect = styled.select`
   &:focus {
     border-color: #0059ff;
   }
-
 `;

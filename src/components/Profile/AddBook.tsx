@@ -1,17 +1,14 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { addBook, BookAddOptions, GenreType, getGenres, uploadFile } from "../../api/bookApi";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { DEFAULT_COVER, IMAGES_URL } from "../../constants/constants";
-import { StyledButton, StyledInput, StyledSelect } from "../StyledComponents";
 import { Icon } from 'react-icons-kit'
 import { upload } from 'react-icons-kit/icomoon/upload'
+import { addBook, getGenres, uploadFile } from "../../api/bookApi";
+import { useEffect, useState } from "react";
+import { DEFAULT_COVER, IMAGES_URL } from "../../constants/constants";
+import { BookAddOptions, GenreType } from "../../types/bookTypes";
+import { StyledButton, StyledInput, StyledSelect } from "../StyledComponents";
 
-
-
-type Props = {
-
-};
+type Props = {};
 
 export const AddBook: React.FC<Props> = (props) => {
   const [genreArray, setGenre] = useState<GenreType[]>([]);
@@ -46,14 +43,12 @@ export const AddBook: React.FC<Props> = (props) => {
       price: data.price,
       sale: data.sale
     };
-
     try {
       const response = await addBook(options);
       console.log('Create book response', response);
     } catch (e) {
       console.log(e)
     }
-
   }
 
   const onChangeFileLoading: React.ChangeEventHandler<HTMLInputElement>
@@ -63,17 +58,15 @@ export const AddBook: React.FC<Props> = (props) => {
       const formData = new FormData();
       formData.append('cover', e.target.files[0]);
       console.log(formData.values);
-
       try {
         const response = await uploadFile(formData);
-        setAvatarImgRef("" + response);
-        console.log(`File uploading response : ${response}`);
+        setAvatarImgRef("" + response.fileName);
 
       } catch (error) {
         console.log(error)
       }
-
     };
+
   return (
     <StyledDiv>
       <div className='book_container'>
@@ -238,8 +231,6 @@ const StyledDiv = styled.div`
     }
     &__button {
       margin-top: 10px;
-      
-      
     }
   }
   input[type="file"] {
@@ -257,7 +248,6 @@ const StyledDiv = styled.div`
       opacity: 0.7;
     }
   }
-  
   .data {
     margin-left: 40px;
     width: 100%;
@@ -289,8 +279,6 @@ const StyledDiv = styled.div`
       &:focus {
         border-color: #0059ff;
       }
-
-
     }
     &__label {
       align-self: flex-start;

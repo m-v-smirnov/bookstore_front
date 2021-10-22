@@ -12,14 +12,11 @@ type Props = {
 
 export const Pagination: React.FC<Props> = (props) => {
   let numbersArray: (number | null)[]=[];
-
   if(props.totalPages < 7) {
     for (let index = 1; index <= props.totalPages; index++) {
       numbersArray.push(index);
-      
     }
   }
-  
   else if (props.page < 4) {
     numbersArray = [
       1,
@@ -51,7 +48,6 @@ export const Pagination: React.FC<Props> = (props) => {
       +props.totalPages
     ]
   }
-
 
   return (
     <StyledDiv>

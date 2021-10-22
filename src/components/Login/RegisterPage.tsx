@@ -1,15 +1,14 @@
 import React from 'react';
 import { useForm, SubmitHandler } from "react-hook-form";
-import { UserCreateOptions } from '../../api/userApi';
+import { StyledButton, StyledInput } from '../StyledComponents';
 import { useAppDispatch } from '../../hooks';
 import { createUserThunk } from '../../store/users/userActions';
-
+import { UserCreateOptions } from '../../types/userTypes';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { StyledButton, StyledInput } from '../StyledComponents';
 
 const schema = yup.object({
-  name: yup.string().required(),
+  fullName: yup.string().required(),
   email: yup.string().email().required(),
   dob: yup.string().required(),
   password: yup.string().min(5).required(),
@@ -29,7 +28,7 @@ export const RegisterPage: React.FC<Props> = (props) => {
   const onSubmit: SubmitHandler<UserCreateOptions> = (data) => {
     console.log(data);
     const options: UserCreateOptions = {
-      name: data.name,
+      fullName: data.fullName,
       email: data.email,
       dob: data.dob,
       password: data.password,
@@ -41,6 +40,7 @@ export const RegisterPage: React.FC<Props> = (props) => {
     e.preventDefault();
     props.setRegisterPage(false);
   }
+
   return (
     <div className='container'>
       <h3>Create your Bookstore account</h3>
@@ -58,11 +58,11 @@ export const RegisterPage: React.FC<Props> = (props) => {
           className='container__input'
           id="GET-name"
           type="text"
-          {...register("name")}
+          {...register("fullName")}
         >
         </StyledInput>
         <p className='container__input--error'>
-          {errors.name?.message}
+          {errors.fullName?.message}
         </p>
         <label
           className='container__label'
@@ -118,7 +118,6 @@ export const RegisterPage: React.FC<Props> = (props) => {
         >
           Create
         </StyledButton>
-
       </form>
       <p className='container__text'>Already have an account?</p>
       <StyledButton
