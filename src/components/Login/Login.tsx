@@ -39,7 +39,6 @@ const StyledDiv = styled.div`
         width: auto;
       }
       &__input--error{
-        margin-bottom: 20px;
         border-width: 2px;
         border-color: red;
       }

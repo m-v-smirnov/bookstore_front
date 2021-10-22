@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import classNames from "classnames";
 import { getGenres } from "../../api/bookApi";
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { setGenreFilter } from "../../store/booksSorting/bookSortingActions";
@@ -36,12 +37,8 @@ export const GenreFilter: React.FC<Props> = (props) => {
               onClick={() => {
                 dispatch(setGenreFilter(""));
               }}
-              className={
-                !("" === genreId)
-                ? "sorting-genre__button"
-                : "sorting-genre__button--selected"
-              }
-              >
+              className={classNames("sorting-genre__button", { "sorting-genre__button--selected": ("" === genreId) })}
+            >
               All genres
             </button>
           </li>
@@ -54,11 +51,7 @@ export const GenreFilter: React.FC<Props> = (props) => {
                 className="sorting-genre__li"
                 key={item._id}>
                 <button
-                  className={
-                    !(item._id === genreId)
-                    ? "sorting-genre__button"
-                    : "sorting-genre__button--selected"
-                  }
+                  className={classNames("sorting-genre__button", { "sorting-genre__button--selected": (item._id === genreId) })}
                 >
                   {item.name}
                 </button></li>
@@ -86,13 +79,14 @@ const StyledDiv = styled.div`
         border: 0;
         background-color: white;
         cursor: pointer;
-        &:hover {
-          background-color: lightgrey;
-        }
         &--selected {
-        border: 0;
-        background-color: #0059ff;
-        color: white;
+          cursor: none;
+          background-color: #0059ff;
+          color: white;
+        }
+        &:hover {
+          background-color: #0059ff;
+          color: white;
         }
       }
     }

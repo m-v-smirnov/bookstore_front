@@ -26,7 +26,7 @@ export const EditUser: React.FC<Props> = (props) => {
   useEffect(() => {
     setValue('fullName', fullName);
     setValue('dob', dob.slice(0, 10))
-  }, [fullName,dob]);
+  }, [fullName,dob,setValue]);
 
   const onSubmit: SubmitHandler<UserEditOptions> = async (data) => {
     const options: UserEditOptions = {

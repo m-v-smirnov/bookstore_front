@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Icon } from 'react-icons-kit';
 import { ic_keyboard_arrow_left} from 'react-icons-kit/md/ic_keyboard_arrow_left';
+import classNames from "classnames";
 
 type Props = {
   totalPages: number,
@@ -71,10 +72,7 @@ export const Pagination: React.FC<Props> = (props) => {
                 props.setPage(item);
               }
             }}
-            className={(item === (+props.page))
-              ? "page__button--active"
-              : "page__button"
-            }
+            className={classNames("page__button",{"page__button--active" : (item === (+props.page))})}
           >
             {item ? item : "..."}
           </button>
@@ -102,12 +100,14 @@ const StyledDiv = styled.div`
   justify-content: center;
   .page {
     &__button {
+      margin: 0 4px;
       border: 0;
       width: 30px;
       background-color: #ffffff; 
       cursor: pointer; 
       &:hover {
-        background-color: #e4dede; 
+        background-color: #0059ff; 
+        color: white;
       }
       &--active {
         border: 0;

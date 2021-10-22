@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 import { getBookById } from "../../api/bookApi";
-import { IMAGES_URL } from "../../constants/constants";
+import { DEFAULT_COVER, IMAGES_URL } from "../../constants/constants";
 import { BookType } from "../../types/bookTypes";
 import { StyledButton } from "../StyledComponents";
 import { BookDescription } from "./BookDescription";
@@ -10,6 +10,7 @@ import { BookRating } from "./BookRating";
 import { BookSpecification } from "./BookSpecification";
 import { BooksReviews } from "./BooksReviews";
 import { RatingStars } from "./RatingStars";
+import classNames from "classnames";
 
 type Props = {
   bookId: string,
@@ -21,7 +22,7 @@ export const BookCard: React.FC<Props> = (props) => {
   const tabsList = ["Description", "Specifications", "Reviews"];
   const cover = IMAGES_URL
     + (book?.coverRefId ? book.coverRefId.fileRef
-      : "defaultcover.png");
+      : DEFAULT_COVER);
 
   useEffect(() => {
     const getBookData = async () => {
@@ -34,7 +35,7 @@ export const BookCard: React.FC<Props> = (props) => {
       }
     }
     getBookData();
-  }, []);
+  }, [props.bookId]);
 
   return (
     <StyledDiv>
@@ -48,11 +49,11 @@ export const BookCard: React.FC<Props> = (props) => {
               <BookRating bookId={props.bookId} />
               <RatingStars bookId={props.bookId} />
             </div>
-            <div className="book-card__div">
+            <div className="book-card__sales">
               <div className="book-card__price">{book?.price} ₽</div>
               {book?.sale
                 ? <div className="book-card__sale">SALE</div>
-                : <div></div>}
+                : null}
             </div>
             <StyledButton>
               Add
@@ -67,11 +68,10 @@ export const BookCard: React.FC<Props> = (props) => {
             {tabsList.map((item, index) => {
               return (
                 <li key={`tabs_${index}`}>
-                  <button 
-                  className={
-                    (tabSelect === (index+1)
-                    ? "texts__button--selected" : "texts__button")}
-                  onClick={() => {setTabSelect(index+1)}} 
+                  <button
+                    className={classNames("texts__button",
+                      { "texts__button--selected": tabSelect === (index + 1) })}
+                    onClick={() => { setTabSelect(index + 1) }}
                   >{item}</button>
                 </li>
               )
@@ -79,10 +79,10 @@ export const BookCard: React.FC<Props> = (props) => {
           </ul>
         </div>
         {(tabSelect === 1)
-        ? <BookDescription description={book? book.description :""} />
-        : (tabSelect === 2) ? <BookSpecification />
-        : <BooksReviews bookId={props.bookId} />
-      }
+          ? <BookDescription description={book ? book.description : ""} />
+          : (tabSelect === 2) ? <BookSpecification />
+            : <BooksReviews bookId={props.bookId} />
+        }
       </div>
     </StyledDiv>
   )
@@ -119,7 +119,7 @@ const StyledDiv = styled.div`
       display: flex;
       flex-direction: column;
     }
-    &__div{
+    &__sales{
       margin: 40px auto;
       width: 100%;
       display: flex;
@@ -153,9 +153,6 @@ const StyledDiv = styled.div`
       font-size: 18px;
       font-weight: 600;
       &--selected {
-        border: 0;
-        font-size: 18px;
-        font-weight: 600;
         border-bottom: 2px solid grey;
       }
       &:hover {

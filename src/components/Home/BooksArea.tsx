@@ -31,6 +31,14 @@ export const BooksArea: React.FC<Props> = (props) => {
     priceMin,
     sortingString } = useAppSelector((state) => state.sorting);
 
+  const options: GetBookOptions = {
+    page: pageState,
+    genreId,
+    priceMax,
+    priceMin,
+    sortingString
+  };
+  
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const page = Number(urlParams.get('page'));
@@ -43,7 +51,7 @@ export const BooksArea: React.FC<Props> = (props) => {
     dispatch(setPriceFilter({ priceMax, priceMin }));
     dispatch(setGenreFilter(genreId as string));
 
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setPageState(1);
@@ -51,15 +59,8 @@ export const BooksArea: React.FC<Props> = (props) => {
   }, [genreId, priceMax, priceMin, sortingString]);
 
   useEffect(() => {
-    const options: GetBookOptions = {
-      page: pageState,
-      genreId,
-      priceMax,
-      priceMin,
-      sortingString
-    };
-    const paramsString = `home?page=${options.page}` + 
-    `&genreId=${options.genreId}&priceMax=${priceMax}&priceMin=${priceMin}`;
+    const paramsString = `home?page=${options.page}` +
+      `&genreId=${options.genreId}&priceMax=${priceMax}&priceMin=${priceMin}`;
     history.push(paramsString);
     const getBooksData = async () => {
       if (pageState === prevPageState) return;
@@ -72,12 +73,13 @@ export const BooksArea: React.FC<Props> = (props) => {
         setHasNextPage(result.pagination.hasNextPage);
         setHasPrevPage(result.pagination.hasPrevPage);
         setTotalDocs(result.pagination.totalDocs);
+
       } catch (error) {
         console.log(error);
       }
     }
     getBooksData();
-  }, [pageState, changeStatus])
+  }, [pageState, changeStatus,history])
 
   return (
     <StyledDiv>

@@ -9,8 +9,6 @@ type Props = {
 
 export const BookRating: React.FC<Props> = (props) => {
   const [bookRating, setBookRating] = useState(0);
-  console.log(`>>> book: ${props.bookId}`);
-
   useEffect(() => {
     const getBookRatingData = async () => {
       try {
@@ -23,7 +21,7 @@ export const BookRating: React.FC<Props> = (props) => {
       }
     }
     getBookRatingData();
-  }, []);
+  }, [props.bookId]);
 
   return (
     <StyledDiv>

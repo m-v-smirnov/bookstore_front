@@ -38,7 +38,7 @@ export default function App() {
         setLoaded(true);
       }
     })();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (error) {

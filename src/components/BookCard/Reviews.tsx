@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import styled from "styled-components";
-import { IMAGES_URL } from "../../constants/constants";
+import { DEFAULT_AVATAR, IMAGES_URL } from "../../constants/constants";
 import { getBookReviews } from "../../api/bookApi";
 import { ReviewType } from "../../types/bookTypes";
 
@@ -16,14 +16,13 @@ export const Reviews: React.FC<Props> = (props) => {
     const getReviewsData = async () => {
       try {
         const result = await getBookReviews({ bookId: props.bookId });
-        console.log(`>>> result: ${result.reviews[0].review}`);
         setReviews(result.reviews);
       } catch (error: any) {
         toast.warn(error.response.data.message)
       }
     };
     getReviewsData();
-  }, []);
+  }, [props.bookId]);
 
   return (
     <StyledDiv>
@@ -32,7 +31,7 @@ export const Reviews: React.FC<Props> = (props) => {
         : <div>{reviews.map((item) => {
           const avatar = IMAGES_URL
             + (item.userId.avatarRefId.fileRef ? item.userId.avatarRefId.fileRef
-              : "defaultavatar.png");
+              : DEFAULT_AVATAR);
           return (
             <div key={item._id} className="review">
               <div className="review__user">

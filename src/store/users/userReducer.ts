@@ -29,7 +29,6 @@ export const userReducer = (
           fullName: actions.payload.fullName,
           dob: actions.payload.dob,
           email: actions.payload.email,
-          //_id: actions.payload._id,
           avatarRef: actions.payload.avatarRef
         },
       }

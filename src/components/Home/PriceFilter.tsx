@@ -9,8 +9,8 @@ type Props = {};
 
 export const PriceFilter: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch();
-  const { register, handleSubmit, setValue,
-    formState: { errors }
+  const { register, handleSubmit,
+    //formState: { errors }
   } = useForm<PriceRange>();
   const onSubmit: SubmitHandler<PriceRange> = async (data) => {
     dispatch(setPriceFilter(data));

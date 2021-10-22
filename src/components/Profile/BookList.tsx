@@ -58,7 +58,7 @@ export const BookList: React.FC<Props> = (props) => {
                 className="book-list__img"
                 src={IMAGES_URL + (item.coverRefId ? item.coverRefId.fileRef : DEFAULT_COVER)} alt=""
               />
-              : ""
+              : null
           )
         })}
         <button

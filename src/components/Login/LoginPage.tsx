@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { StyledButton, StyledInput } from '../StyledComponents';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
+import classNames from "classnames";
 import { useAppDispatch } from '../../hooks';
 import { loginUserThunk } from '../../store/users/userActions';
 import { UserLoginOptions } from '../../types/userTypes';
@@ -61,7 +62,7 @@ export const LoginPage: React.FC<Props> = (props) => {
           Password:
         </label>
         <StyledInput
-          className={!errors.password ? 'container__input' : 'container__input--error'}
+          className={classNames('container__input',{'container__input--error' : errors.password})}
           id="GET-pass"
           type="password"
           {...register("password")}

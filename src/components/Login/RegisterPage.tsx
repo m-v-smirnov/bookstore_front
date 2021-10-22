@@ -3,8 +3,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { StyledButton, StyledInput } from '../StyledComponents';
 import { useAppDispatch } from '../../hooks';
 import { createUserThunk } from '../../store/users/userActions';
-import { UserCreateOptions } from '../../types/userTypes';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { UserCreateOptions } from '../../types/userTypes';
 import * as yup from "yup";
 
 const schema = yup.object({
@@ -40,7 +40,6 @@ export const RegisterPage: React.FC<Props> = (props) => {
     e.preventDefault();
     props.setRegisterPage(false);
   }
-
   return (
     <div className='container'>
       <h3>Create your Bookstore account</h3>
@@ -55,15 +54,12 @@ export const RegisterPage: React.FC<Props> = (props) => {
           Name:
         </label>
         <StyledInput
-          className='container__input'
+          className={!errors.fullName ? 'container__input' : 'container__input--error'}
           id="GET-name"
           type="text"
           {...register("fullName")}
         >
         </StyledInput>
-        <p className='container__input--error'>
-          {errors.fullName?.message}
-        </p>
         <label
           className='container__label'
           htmlFor="GET-email"
@@ -71,15 +67,12 @@ export const RegisterPage: React.FC<Props> = (props) => {
           Email:
         </label>
         <StyledInput
-        className='container__input'
+        className={!errors.email ? 'container__input' : 'container__input--error'}
           id="GET-email"
           type="text"
           {...register("email")}
         >
         </StyledInput>
-        <p className='container__input--error'>
-          {errors.email?.message}
-        </p>
         <label
           className='container__label'
           htmlFor="GET-dob"
@@ -87,15 +80,12 @@ export const RegisterPage: React.FC<Props> = (props) => {
           Date of birth:
         </label>
         <StyledInput
-        className='container__input'
+        className={!errors.dob ? 'container__input' : 'container__input--error'}
           id="GET-dob"
           type="date"
           {...register("dob")}
         >
         </StyledInput>
-        <p className='container__input--error'>
-          {errors.dob?.message}
-        </p>
         <label
           className='container__label'
           htmlFor="GET-pass"
@@ -103,21 +93,19 @@ export const RegisterPage: React.FC<Props> = (props) => {
           Password:
         </label>
         <StyledInput
-        className='container__input'
+        className={!errors.password ? 'container__input' : 'container__input--error'}
           id="GET-pass"
           type="password"
           {...register("password")}
         >
         </StyledInput>
-        <p className='container__input--error'>
-          {errors.password?.message}
-        </p>
         <StyledButton
           type="submit"
           className='container__button'
         >
           Create
         </StyledButton>
+
       </form>
       <p className='container__text'>Already have an account?</p>
       <StyledButton

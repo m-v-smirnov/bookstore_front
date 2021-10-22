@@ -4,40 +4,42 @@ import { ic_star_rate_outline } from 'react-icons-kit/md/ic_star_rate_outline'
 import { useState } from "react";
 import { addBookRating } from "../../api/bookApi";
 import { useAppSelector } from "../../hooks";
-import { Redirect } from "react-router";
+import { useHistory } from "react-router";
 import { toast } from "react-toastify";
+import classNames from "classnames";
 
 type Props = {
   bookId: string
 };
-
 const rates = [1, 2, 3, 4, 5];
-const onStarsClick = async (item: number, bookId: string) => {
-  try {
-    const options = {
-      rating: item,
-      bookId: bookId
-    };
-    await addBookRating(options);
-  } catch (error: any) {
-    toast.error(String(error.response.data.message));
-  }
-}
 
 export const RatingStars: React.FC<Props> = (props) => {
   const [rate, setRate] = useState(0);
-  const [redirectToLogin, setRedirectToLogin] = useState(false);
   const { user } = useAppSelector((state) => state.user);
+  const history = useHistory();
+
+  const onStarsClick = async (item: number, bookId: string) => {
+    if (!user) return history.push('/login');
+    try {
+      const options = {
+        rating: item,
+        bookId: bookId
+      };
+      await addBookRating(options);
+    } catch (error: any) {
+      toast.error(String(error.response.data.message));
+    }
+  }
 
   return (
-    <StyleDiv>{redirectToLogin
-      ? <Redirect to="/login" />
-      : <div>{
+    <StyleDiv>
+      <div>{
         rates.map((item) => {
           return (
             <button
               key={`${item}-star`}
-              className={(rate >= item) ? "rating__star--blue" : "rating__star"}
+              className={classNames("rating__star",
+                { "rating__star--blue": (rate >= item) })}
               onMouseOver={() => {
                 setRate(item)
               }}
@@ -45,7 +47,6 @@ export const RatingStars: React.FC<Props> = (props) => {
                 setRate(0)
               }}
               onClick={() => {
-                if (!user) return setRedirectToLogin(true);
                 onStarsClick(item, props.bookId)
               }}
             >
@@ -55,7 +56,6 @@ export const RatingStars: React.FC<Props> = (props) => {
         })
       }
       </div>
-    }
     </StyleDiv>
   )
 };
@@ -75,13 +75,8 @@ const StyleDiv = styled.div`
       cursor: pointer;
     }
     &__star--blue {
-      padding: 0%;;
-      background-color: white;
-      border: 0;
-      height: 25px;
-      width: 25px;
       color: #0059ff;
-      cursor: pointer;
+      
     }
   }
 `; 

@@ -1,41 +1,39 @@
 import styled from "styled-components";
-import { useState } from "react";
-import { Redirect } from "react-router";
+import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { Icon } from 'react-icons-kit';
 import { ic_favorite_border } from 'react-icons-kit/md/ic_favorite_border';
 import { addToFavorites } from "../../api/bookApi";
-import { IMAGES_URL } from "../../constants/constants";
+import { DEFAULT_COVER, IMAGES_URL } from "../../constants/constants";
 import { StyledButton } from "../StyledComponents";
 import { useAppSelector } from "../../hooks";
 import { BookType } from "../../types/bookTypes";
+import { toast } from "react-toastify";
 
 type Props = {
   book: BookType
 };
 
 export const BookMini: React.FC<Props> = (props) => {
-  const [redirectToLogin, setRedirectToLogin] = useState(false);
+  const history = useHistory();
   const { user } = useAppSelector((state) => state.user);
   const cover = IMAGES_URL
     + (props.book.coverRefId
       ? props.book.coverRefId.fileRef
-      : "defaultcover.png");
+      : DEFAULT_COVER);
   const onFavoritesClick: React.MouseEventHandler<HTMLButtonElement> = async () => {
     if (!user) {
-      return setRedirectToLogin(true);
+      return history.push('/login');
     }
     try {
-      const result = await addToFavorites({ bookId: props.book._id });
-    } catch (error) {
-      console.log(error);
+      await addToFavorites({ bookId: props.book._id });
+    } catch (error: any) {
+      toast.error(error.response.data.message);
     }
   };
 
   return (
     <StyledDiv>
-      {redirectToLogin ? <Redirect to="/login" />
-        :
         <div className="book-mini">
           <button
             className="book-mini__favorites"
@@ -59,11 +57,11 @@ export const BookMini: React.FC<Props> = (props) => {
               <p className="book-mini__author">{props.book.author}</p>
               <p className="book-mini__title">{props.book.title}</p>
             </div>
-            <div className="book-mini__div">
+            <div className="book-mini__sales">
               <p className="book-mini__price">{props.book.price} ₽ </p>
               {props.book.sale
                 ? <p className="book-mini__sale">SALE</p>
-                : <p></p>
+                : null
               }
             </div>
             <StyledButton className="book-mini__button">
@@ -71,7 +69,6 @@ export const BookMini: React.FC<Props> = (props) => {
             </StyledButton>
           </div>
         </div>
-      }
     </StyledDiv>
   )
 };
@@ -134,7 +131,7 @@ const StyledDiv = styled.div`
         padding: 0;
         margin: 0;
       }
-      &__div {
+      &__sales {
         width: 100%;
         display: flex;
         align-items: center;

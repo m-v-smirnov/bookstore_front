@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { DEFAULT_AVATAR, IMAGES_URL } from "../../constants/constants";
+import { DEFAULT_AVATAR, IMAGES_URL, LOGO } from "../../constants/constants";
 import { useAppSelector } from "../../hooks";
-import { LoginButton } from "./LoginButton";
-import { LogoutButton } from "./LogoutButton";
+import { LoginButton } from "../UI/LoginButton";
+import { LogoutButton } from "../UI/LogoutButton";
 
-const logo = IMAGES_URL + "bookstore.png"
+const logo = IMAGES_URL + LOGO;
 type Props = {
 
 };
@@ -79,5 +79,8 @@ const StyledDiv = styled.div`
     cursor: pointer;
     border: 0;
     background-color: white;
+    &:hover{
+      color: #00379e;
+    }
   }
 `;
