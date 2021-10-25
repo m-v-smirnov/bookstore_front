@@ -6,6 +6,7 @@ import { createUserThunk } from '../../store/users/userActions';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { UserCreateOptions } from '../../types/userTypes';
 import * as yup from "yup";
+import classNames from 'classnames';
 
 const schema = yup.object({
   fullName: yup.string().required(),
@@ -54,7 +55,7 @@ export const RegisterPage: React.FC<Props> = (props) => {
           Name:
         </label>
         <StyledInput
-          className={!errors.fullName ? 'container__input' : 'container__input--error'}
+          className={classNames('container__input', { 'container__input--error': errors.fullName })}
           id="GET-name"
           type="text"
           {...register("fullName")}
@@ -67,7 +68,7 @@ export const RegisterPage: React.FC<Props> = (props) => {
           Email:
         </label>
         <StyledInput
-        className={!errors.email ? 'container__input' : 'container__input--error'}
+          className={classNames('container__input', { 'container__input--error': errors.email })}
           id="GET-email"
           type="text"
           {...register("email")}
@@ -80,7 +81,7 @@ export const RegisterPage: React.FC<Props> = (props) => {
           Date of birth:
         </label>
         <StyledInput
-        className={!errors.dob ? 'container__input' : 'container__input--error'}
+          className={classNames('container__input', { 'container__input--error': errors.dob })}
           id="GET-dob"
           type="date"
           {...register("dob")}
@@ -93,7 +94,7 @@ export const RegisterPage: React.FC<Props> = (props) => {
           Password:
         </label>
         <StyledInput
-        className={!errors.password ? 'container__input' : 'container__input--error'}
+          className={classNames('container__input', { 'container__input--error': errors.password })}
           id="GET-pass"
           type="password"
           {...register("password")}

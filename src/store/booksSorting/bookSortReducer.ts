@@ -4,13 +4,15 @@ type BookSortState = {
   genreId: string,
   priceMin: number,
   priceMax: number,
-  sortingString: string
+  sortingString: string,
+  initialValues: boolean
 };
 const initialState: BookSortState = {
   genreId: '',
   priceMax : Infinity,
   priceMin: 0,
-  sortingString: "default"
+  sortingString: "default",
+  initialValues : true
 };
 
 export const bookSortReducer = (
@@ -22,17 +24,20 @@ export const bookSortReducer = (
       return {
         ...state,
         genreId: actions.payload,
+        initialValues: false,
       }
     case 'SET_PRICE_FILTER':
       return {
         ...state,
         priceMax: actions.payload.priceMax,
-        priceMin: actions.payload.priceMin
+        priceMin: actions.payload.priceMin,
+        initialValues: false,
       }
     case 'SET_SORTING':
       return {
         ...state,
-        sortingString: actions.payload
+        sortingString: actions.payload,
+        initialValues: false,
       }
     default:
       return state

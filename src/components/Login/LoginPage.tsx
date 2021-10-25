@@ -7,6 +7,8 @@ import classNames from "classnames";
 import { useAppDispatch } from '../../hooks';
 import { loginUserThunk } from '../../store/users/userActions';
 import { UserLoginOptions } from '../../types/userTypes';
+import { toast } from 'react-toastify';
+import { useHistory } from 'react-router';
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -19,16 +21,22 @@ type Props = {
 
 export const LoginPage: React.FC<Props> = (props) => {
   const dispatch: any = useAppDispatch();
+  const history = useHistory();
   const { register, handleSubmit,
     formState: { errors }
   } = useForm<UserLoginOptions>({ resolver: yupResolver(schema) });
 
-  const onSubmit: SubmitHandler<UserLoginOptions> = (data) => {
+  const onSubmit: SubmitHandler<UserLoginOptions> = async (data) => {
     const options: UserLoginOptions = {
       email: data.email,
       password: data.password,
     };
-    dispatch(loginUserThunk(options));
+    try {
+      await dispatch(loginUserThunk(options));
+      history.push("/");
+    } catch (error :any) {
+      toast.error(error.response.data.message)
+    }
   };
   const activateRegisterPage =
     (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -50,7 +58,8 @@ export const LoginPage: React.FC<Props> = (props) => {
           Email:
         </label>
         <StyledInput
-          className={!errors.email ? 'container__input' : 'container__input--error'}
+          className={classNames('container__input',
+            { 'container__input--error': errors.password })}
           id="GET-email"
           {...register("email")}
         >
@@ -62,7 +71,8 @@ export const LoginPage: React.FC<Props> = (props) => {
           Password:
         </label>
         <StyledInput
-          className={classNames('container__input',{'container__input--error' : errors.password})}
+          className={classNames('container__input',
+            { 'container__input--error': errors.password })}
           id="GET-pass"
           type="password"
           {...register("password")}

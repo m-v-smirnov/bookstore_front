@@ -11,93 +11,82 @@ import {
   setGenreFilter,
   setPriceFilter
 } from "../../store/booksSorting/bookSortingActions";
-import { toast } from "react-toastify";
-import  queryString  from "query-string"
 
 type Props = {};
 
 export const BooksArea: React.FC<Props> = (props) => {
   const [books, setBooks] = useState<BookType[]>([]);
   const [pageState, setPageState] = useState<number>(1);
-  const [pageAuxState, setPageAuxState] = useState<number>(1);
+  const [prevPageState, setPrevPageState] = useState<number>(0);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [totalDocs, setTotalDocs] = useState<number>(0);
   const [hasPrevPage, setHasPrevPage] = useState(false);
   const [hasNextPage, setHasNextPage] = useState(false);
-
+  const [changeStatus, setChangeStatus] = useState(false);
   let history = useHistory();
   const dispatch = useAppDispatch();
   const {
     genreId,
     priceMax,
     priceMin,
-    sortingString,
-    initialValues } = useAppSelector((state) => state.sorting);
-
-  const options: GetBookOptions = {
-    page: pageState,
-    genreId,
-    priceMax,
-    priceMin,
-    sortingString
-  };
-
-  useEffect(() => {
-    if (!initialValues) setPageState(1)
-  },[genreId,
-    priceMax,
-    priceMin,
-    sortingString])
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const page = Number(urlParams.get('page'));
-    const genreId = urlParams.get('genreId');
-    const priceMax = Number(urlParams.get('priceMax'));
-    const priceMin = Number(urlParams.get('priceMin'));
-   
-    const getBookOptions: GetBookOptions = {
-      page: (initialValues) ? (page === 0 ? 1 : page) : pageState,
-      genreId: ((initialValues) ? genreId : options.genreId) || '',
-      priceMax: ((initialValues) ? priceMax : options.priceMax) || Infinity,
-      priceMin: (initialValues) ? priceMin : options.priceMin || 0,
-      sortingString: options.sortingString || "default",
+    sortingString } = useAppSelector((state) => state.sorting);
+    
+    const options: GetBookOptions = {
+      page: pageState,
+      genreId,
+      priceMax,
+      priceMin,
+      sortingString
     };
-   
-    dispatch(setPriceFilter({ priceMax: getBookOptions.priceMax, priceMin: getBookOptions.priceMin }));
-    dispatch(setGenreFilter(getBookOptions.genreId));
+    
+    useEffect(() => {
+      
+      const urlParams = new URLSearchParams(window.location.search);
+      const page = Number(urlParams.get('page'));
+      const genreId = urlParams.get('genreId');
+      const priceMax = Number(urlParams.get('priceMax'));
+      const priceMin = Number(urlParams.get('priceMin'));
 
-    const query = {
-      page: getBookOptions.page,
-      genreId: getBookOptions.genreId,
-      priceMax: getBookOptions.priceMax,
-      priceMin: getBookOptions.priceMin,
-    }
-    const paramsString = queryString.stringifyUrl({ url: "/home",query});
+      if (!page) return
+    setPageState(page);
+    dispatch(setPriceFilter({ priceMax, priceMin }));
+    dispatch(setGenreFilter(genreId as string));
+
+  }, [dispatch]);
+
+  useEffect(() => {
+    setPageState(1);
+    setChangeStatus(!changeStatus);
+  }, [genreId, priceMax, priceMin, sortingString]);
+
+  useEffect(() => {
+    const paramsString = `home?page=${options.page}` +
+      `&genreId=${options.genreId}&priceMax=${priceMax}&priceMin=${priceMin}`;
     history.push(paramsString);
-
     const getBooksData = async () => {
+      if (pageState === prevPageState) return;
       try {
-        const result = await getBooks(getBookOptions);
+        const result = await getBooks(options);
         setBooks(result.books);
-        setPageAuxState(result.pagination.page);
+        setPageState(result.pagination.page);
+        setPrevPageState(result.pagination.page);
         setTotalPages(result.pagination.totalPages);
         setHasNextPage(result.pagination.hasNextPage);
         setHasPrevPage(result.pagination.hasPrevPage);
         setTotalDocs(result.pagination.totalDocs);
 
-      } catch (error: any) {
-        toast.error(error.response.data.message);
+      } catch (error) {
+        console.log(error);
       }
     }
     getBooksData();
-  }, [pageState, genreId, priceMax, priceMin, sortingString])
+  }, [pageState, changeStatus,history])
 
   return (
     <StyledDiv>
       <Pagination
         totalPages={totalPages}
-        page={pageAuxState}
+        page={pageState}
         setPage={setPageState}
         hasNextPage={hasNextPage}
         hasPrevPage={hasPrevPage}

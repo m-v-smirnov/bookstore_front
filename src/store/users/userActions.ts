@@ -11,6 +11,7 @@ import {
   UserEditOptions,
   UserLoginOptions
 } from "../../types/userTypes";
+import { useHistory } from "react-router";
 
 export const setStartLoading = (): UserActions => {
   return {

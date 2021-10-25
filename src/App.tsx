@@ -6,7 +6,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  useParams
 } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from './hooks';
 import { PrivateRoute } from './components/PrivateRoutes';
@@ -18,16 +18,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BookCard } from './components/BookCard/BookCard';
 
-const ToBookCard = (props: any) => {
-  return <BookCard bookId={props.match.params.id} />
+const ToBookCard = () => {
+  const { id } = useParams<{id : string}>();
+  return <BookCard bookId={id} />
 };
 
 export default function App() {
-
+  
   const dispatch: any = useAppDispatch();
-  const { user, error } = useAppSelector((state) => state.user);
+  const { error } = useAppSelector((state) => state.user);
   const [isLoaded, setLoaded] = useState(false);
-
+  
   useEffect(() => {
     const token = localStorage.getItem('token');
     (async function () {
@@ -39,13 +40,13 @@ export default function App() {
       }
     })();
   }, [dispatch]);
-
+  
   useEffect(() => {
     if (error) {
       toast.error(error);
     }
   }, [error]);
-
+  
   return (
     <Router>
       <Header />
@@ -55,9 +56,7 @@ export default function App() {
             <PrivateRoute path="/profile">
               <Profile />
             </PrivateRoute>
-            <Route path="/login">
-              {user ? <Redirect to="/" /> : <Login />}
-            </Route>
+            <Route path="/login" component={Login} />
             <Route path="/book/:id" component={ToBookCard} />
             <Route path="/" component={Home} />
           </Switch>
