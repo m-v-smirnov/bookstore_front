@@ -40,7 +40,7 @@ export const getBooks = async (options: GetBookOptions): Promise<BookResponseTyp
 };
 
 export const getBookById = async (option: { bookId: string }): Promise<OneBookResponseType> => {
-  const response = await instance.get("books/book", { params: option })
+  const response = await instance.get(`/books/${option.bookId}`)
   return response.data;
 };
 
@@ -61,7 +61,7 @@ export const addBookRating = async (options: BookRatingType) => {
 
 export const getBookRating = async (option: { bookId: string }): Promise<BookRatingResponseType> => {
 
-  const response = await instance.get("/books/get-rating", { params: option })
+  const response = await instance.get(`/books/${option.bookId}/get-rating`)
   return response.data;
 };
 
