@@ -9,6 +9,7 @@ import { StyledButton } from "../StyledComponents";
 import { useAppSelector } from "../../hooks";
 import { BookType } from "../../types/bookTypes";
 import { toast } from "react-toastify";
+import { addBookToCart } from "../../api/shopCartApi";
 
 type Props = {
   book: BookType
@@ -31,6 +32,18 @@ export const BookMini: React.FC<Props> = (props) => {
       toast.error(error.response.data.message);
     }
   };
+
+  const onAddClick = async () => {
+    if (!user) {
+      return history.push('/login');
+    }
+    try {
+      await addBookToCart({bookId: props.book._id});
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  }
+
 
   return (
     <StyledDiv>
@@ -64,7 +77,9 @@ export const BookMini: React.FC<Props> = (props) => {
                 : null
               }
             </div>
-            <StyledButton className="book-mini__button">
+            <StyledButton className="book-mini__button"
+            onClick={onAddClick}
+            >
               Add
             </StyledButton>
           </div>

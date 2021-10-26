@@ -17,6 +17,7 @@ import { loginByTokenThunk } from './store/users/userActions';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BookCard } from './components/BookCard/BookCard';
+import { BookShopCart } from './components/BookShopCart/BookShopCart';
 
 const ToBookCard = () => {
   const { id } = useParams<{id : string}>();
@@ -55,6 +56,9 @@ export default function App() {
           ? <Switch>
             <PrivateRoute path="/profile">
               <Profile />
+            </PrivateRoute>
+            <PrivateRoute path="/shopcart">
+              <BookShopCart />
             </PrivateRoute>
             <Route path="/login" component={Login} />
             <Route path="/book/:id" component={ToBookCard} />

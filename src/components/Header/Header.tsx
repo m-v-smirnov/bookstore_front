@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { DEFAULT_AVATAR, IMAGES_URL, LOGO } from "../../constants/constants";
 import { useAppSelector } from "../../hooks";
+import { CartButton } from "../UI/CartButton";
 import { LoginButton } from "../UI/LoginButton";
 import { LogoutButton } from "../UI/LogoutButton";
 
@@ -25,20 +26,23 @@ export const Header: React.FC<Props> = (props) => {
               src={logo} alt="LOGO"
             />
           </Link>
-          {user
-            ? <div className="header_content__div">
-              <Link to="/profile">
-                <img
-                  title="profile"
-                  className="header_content__avatar"
-                  src={avatar} alt="avatar"
-                />
-              </Link>
-              <LogoutButton />
-            </div>
-            :
-            <LoginButton />
-          }
+          <div className="header_content__group">
+            <CartButton width="45px"/>
+            {user
+              ? <div className="header_content__login">
+                <Link to="/profile">
+                  <img
+                    title="profile"
+                    className="header_content__avatar"
+                    src={avatar} alt="avatar"
+                  />
+                </Link>
+                <LogoutButton />
+              </div>
+              :
+              <LoginButton />
+            }
+          </div>
         </div>
       </div>
     </StyledDiv>
@@ -64,12 +68,16 @@ const StyledDiv = styled.div`
       width: 50px;
       object-fit: cover; 
     }
-    &__div {
+    &__login {
       align-self: center;
       display: flex;
     }
+    &__group {
+      display: flex;
+      align-items: center;
+    }
   }
-  .logout_button {
+    .logout_button {
     width: 50px;
     height: 50px;
     align-self: center;

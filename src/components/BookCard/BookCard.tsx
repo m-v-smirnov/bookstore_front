@@ -11,12 +11,17 @@ import { BookSpecification } from "./BookSpecification";
 import { BooksReviews } from "./BooksReviews";
 import { RatingStars } from "./RatingStars";
 import classNames from "classnames";
+import { useHistory } from "react-router";
+import { useAppSelector } from "../../hooks";
+import { addBookToCart } from "../../api/shopCartApi";
 
 type Props = {
   bookId: string,
 };
 
 export const BookCard: React.FC<Props> = (props) => {
+  const history = useHistory();
+  const { user } = useAppSelector((state) => state.user);
   const [book, setBook] = useState<BookType>();
   const [tabSelect, setTabSelect] = useState(1);
   const tabsList = ["Description", "Specifications", "Reviews"];
@@ -37,6 +42,17 @@ export const BookCard: React.FC<Props> = (props) => {
     getBookData();
   }, [props.bookId]);
 
+  const onAddClick = async () => {
+    if (!user) {
+      return history.push('/login');
+    }
+    try {
+      await addBookToCart({bookId: props.bookId});
+    } catch (error: any) {
+      toast.error(error.response.data.message);
+    }
+  }
+
   return (
     <StyledDiv>
       <div className="book-card">
@@ -55,7 +71,9 @@ export const BookCard: React.FC<Props> = (props) => {
                 ? <div className="book-card__sale">SALE</div>
                 : null}
             </div>
-            <StyledButton>
+            <StyledButton
+            onClick={onAddClick}
+            >
               Add
             </StyledButton>
           </div>
