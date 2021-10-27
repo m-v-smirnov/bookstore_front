@@ -50,12 +50,12 @@ export const getMyBooks = async (): Promise<BookResponseType> => {
 };
 
 export const addToFavorites = async (option: { bookId: string }) => {
-  const response = await instance.post("/books/add-to-favorites", option)
+  const response = await instance.post(`/books/${option.bookId}/add-to-favorites`)
   return response.data;
 };
 
 export const addBookRating = async (options: BookRatingType) => {
-  const response = await instance.post("/books/rate-the-book", options)
+  const response = await instance.post(`/books/${options.bookId}/rate-the-book`, options)
   return response.data;
 };
 
@@ -66,10 +66,10 @@ export const getBookRating = async (option: { bookId: string }): Promise<BookRat
 };
 
 export const addBookReview = async (options: { bookId: string, review: string }) => {
-  await instance.post("/books/reviews", options);
+  await instance.post(`/books/${options.bookId}/review`, options);
 }
 
 export const getBookReviews = async (option: { bookId: string }): Promise<ReviewsResponseType> => {
-  const response = await instance.get("/books/reviews", { params: option })
+  const response = await instance.get(`/books/${option.bookId}/reviews`)
   return response.data;
 };

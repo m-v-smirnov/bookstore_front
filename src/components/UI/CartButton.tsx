@@ -2,8 +2,7 @@ import styled from "styled-components"
 import { Icon } from 'react-icons-kit'
 import { ic_shopping_cart_outline } from 'react-icons-kit/md/ic_shopping_cart_outline'
 import { useEffect, useState } from "react"
-import { BooksCartResponseType, getBooksFromCart } from "../../api/shopCartApi"
-import { toast } from "react-toastify"
+import { getBooksFromCart } from "../../api/shopCartApi"
 import { useHistory } from "react-router"
 import { useAppSelector } from "../../hooks"
 
@@ -42,9 +41,6 @@ export const CartButton: React.FC<Props> = (props) => {
   }, []);
   
   const onCartButtonClick = () => {
-    // if (!user) {
-    //   return history.push('/login');
-    // }
     history.push('/shopcart');
   }
   

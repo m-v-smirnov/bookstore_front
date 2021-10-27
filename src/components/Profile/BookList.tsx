@@ -5,6 +5,7 @@ import { DEFAULT_COVER, IMAGES_URL } from '../../constants/constants';
 import { Icon } from 'react-icons-kit';
 import { ic_keyboard_arrow_left} from 'react-icons-kit/md/ic_keyboard_arrow_left';
 import { BookType } from '../../types/bookTypes';
+import { Link } from 'react-router-dom';
 
 type Props = {};
 
@@ -53,11 +54,13 @@ export const BookList: React.FC<Props> = (props) => {
         {books.map((item, index) => {
           return (
             (index < 5) ?
+            <Link key={item._id} to={`/book/${item._id}`}>
               <img
-                key={item._id}
+                
                 className="book-list__img"
                 src={IMAGES_URL + (item.coverRefId ? item.coverRefId.fileRef : DEFAULT_COVER)} alt=""
               />
+            </Link>
               : null
           )
         })}

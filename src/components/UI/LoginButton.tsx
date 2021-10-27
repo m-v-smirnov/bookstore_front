@@ -7,7 +7,6 @@ type Props = {};
 export const LoginButton: React.FC<Props> = (props) => {
   const history = useHistory();
   return (
-    //<a className="logout_button" href="/login">Login</a>
     <button
       title="login"
       className="logout_button"
