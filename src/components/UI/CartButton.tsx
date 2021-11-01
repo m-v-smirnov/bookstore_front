@@ -4,7 +4,6 @@ import { ic_shopping_cart_outline } from 'react-icons-kit/md/ic_shopping_cart_ou
 import { useEffect, useState } from "react"
 import { getBooksFromCart } from "../../api/shopCartApi"
 import { useHistory } from "react-router"
-import { useAppSelector } from "../../hooks"
 
 type Props = {
   width: string,
@@ -15,7 +14,6 @@ type StyledProps = {
 export const CartButton: React.FC<Props> = (props) => {
   const [amount, setAmount] = useState(0);
   const history = useHistory();
-  const { user } = useAppSelector((state) => state.user);
   
   useEffect(() => {
     const getBookFromCartData = async () => {

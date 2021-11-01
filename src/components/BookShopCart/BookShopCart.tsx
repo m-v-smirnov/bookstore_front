@@ -31,7 +31,7 @@ export const BookShopCart: React.FC<Props> = (props) => {
         <div className="cart-tabs__x">{null}</div>
       </div>
       <div className="hopcart__list">
-        {(bookCart)
+        {(bookCart.length >0)
           ? bookCart.map((item) => {
             return (
               <div key={item._id}>

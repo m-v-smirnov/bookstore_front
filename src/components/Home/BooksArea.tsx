@@ -47,7 +47,9 @@ export const BooksArea: React.FC<Props> = (props) => {
   },[genreId,
     priceMax,
     priceMin,
-    sortingString])
+    sortingString,
+    initialValues,
+  ])
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
