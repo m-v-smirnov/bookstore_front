@@ -27,7 +27,10 @@ export const Header: React.FC<Props> = (props) => {
             />
           </Link>
           <div className="header_content__group">
-            <CartButton width="45px"/>
+            <Link className="header_content__aws" to="/aws/get-logs">
+              S3
+            </Link>
+            <CartButton width="45px" />
             {user
               ? <div className="header_content__login">
                 <Link to="/profile">
@@ -75,6 +78,19 @@ const StyledDiv = styled.div`
     &__group {
       display: flex;
       align-items: center;
+    }
+    &__aws {
+      margin: 0px 10px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: 600;
+      color: #0059ff;
+      border: 0px;
+      cursor: pointer;
+      text-decoration: none;
+      &:hover{
+      color: #00379e;
+    }
     }
   }
     .logout_button {

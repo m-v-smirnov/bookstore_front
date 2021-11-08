@@ -18,6 +18,8 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BookCard } from './components/BookCard/BookCard';
 import { BookShopCart } from './components/BookShopCart/BookShopCart';
+import { S3LogRequestForm } from './components/awsS3/S3LogRequestForm';
+
 
 const ToBookCard = () => {
   const { id } = useParams<{id : string}>();
@@ -60,6 +62,7 @@ export default function App() {
             <PrivateRoute path="/shopcart">
               <BookShopCart />
             </PrivateRoute>
+            <Route path="/aws/get-logs" component={S3LogRequestForm} />
             <Route path="/login" component={Login} />
             <Route path="/book/:id" component={ToBookCard} />
             <Route path="/" component={Home} />
