@@ -8,8 +8,9 @@ export type S3LogsReqOptions = {
     endDate: string
 }
 
-export const getLogsFromAwsS3 = async (options: S3LogsReqOptions) => {
+export const getLogsFromAwsS3 = async (options: S3LogsReqOptions): Promise<any> => {
     const response = await instance.get("/aws/get-logs", {
         params: options
     });
+    return response
 }

@@ -2,17 +2,20 @@ import styled from "styled-components";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { getLogsFromAwsS3, S3LogsReqOptions } from "../../api/awsApi";
 import { StyledButton, StyledInput } from "../StyledComponents";
+import { useState } from "react";
 
 type Props = {};
 
 export const S3LogRequestForm: React.FC<Props> = (props) => {
+  const [recievedData, setRecievedData] = useState(null) as any;
   const { register, handleSubmit,
     // formState: { errors }
   } = useForm<S3LogsReqOptions>();
   const onSubmit: SubmitHandler<S3LogsReqOptions> = async (data) => {
     const options : S3LogsReqOptions = data;
     try {
-      await getLogsFromAwsS3(options);
+      const result = await getLogsFromAwsS3(options);
+      setRecievedData(result);
     } catch (error) {
       console.log(error);
     }
@@ -88,6 +91,15 @@ export const S3LogRequestForm: React.FC<Props> = (props) => {
           Request logs from s3
         </StyledButton>
       </form>
+      <div>
+        <ul>
+        {recievedData 
+        ? recievedData.data.logsFromS3ArrayOutputParsed.map((item: any) => {
+          return <li>{JSON.stringify(item)}</li>
+        })
+         : ""}
+        </ul>
+      </div>
     </StyledDiv>
   )
 }
